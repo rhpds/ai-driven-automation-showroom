@@ -394,7 +394,7 @@ image::aiops-cool.gif[aiops-cool]
 
 == 🎉 Congratulations! You've Completed Part 1!
 
-You have successfully completed the core AIOps workflow! You've experienced firsthand how **Red Hat AI**, **Ansible Lightspeed**, and **Ansible Automation Platform** can work together to create intelligent, self-healing infrastructure.
+You have successfully completed the **basic introduction** to AIOps! You've experienced firsthand how **Red Hat AI**, **Ansible Lightspeed**, and **Ansible Automation Platform** can work together to create intelligent, self-healing infrastructure.
 
 === What You Accomplished
 
@@ -405,11 +405,14 @@ You have successfully completed the core AIOps workflow! You've experienced firs
 
 '''
 
-== Ready for More? Welcome to Part 2!
+== ⭐ Ready for More? Part 2 Awaits!
 
 image::splunk-logo.png[splunk,150]
 
-If you're interested in exploring how these same AI-driven automation concepts apply to **network automation**, continue to Part 2!
+[IMPORTANT]
+====
+**Highly Recommended!** Part 2 takes the AIOps concepts you just learned and applies them to a **more complex, real-world networking scenario**. While Part 1 provided a basic introduction using Apache service remediation, Part 2 demonstrates the true power of AI-driven automation at scale with network infrastructure.
+====
 
 In the next modules, you'll apply everything you've learned to a **network automation scenario** involving:
 
@@ -418,11 +421,11 @@ In the next modules, you'll apply everything you've learned to a **network autom
 * 🧠 **Ansible Lightspeed** generating network remediation playbooks
 * 🌐 **Cisco routers** with OSPF configuration challenges
 
-[NOTE]
+[TIP]
 ====
-**Part 2 is optional.** If you'd like to skip to the Summary and Call to Actions, you can navigate there directly from the menu.
+**Both parts are independent.** If you've already completed Part 2 or want to skip ahead to the Summary and Call to Actions, you can navigate there directly from the menu. However, we strongly encourage completing Part 2 for a deeper understanding of AIOps capabilities.
 ====
 
 == Complete
 
-Click the link below to continue to **Module 3: Splunk** and begin Part 2, or skip ahead to the Summary.
+Click the link below to continue to **Module 3: Splunk** and begin Part 2.

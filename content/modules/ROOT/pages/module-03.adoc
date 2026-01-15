@@ -40,15 +40,15 @@ Earlier we configured a Splunk alert, now we need to configure Event Driven Ansi
 | `{ssh_password}`
 |===
 
-Step1: Open EDA from the AAP tab
+Step 1: Open EDA from the AAP tab
 
 image::bastion2.png[AAP]
 
-Step2: Navigate to "Automation Decisions" / "infrastructure" / "Credentials"
+Step 2: Navigate to "Automation Decisions" / "infrastructure" / "Credentials"
 
 image::automation_decisions.png[automation decisions, 100%]
 
-Step3: Create a new credential of type "source control" called "gitea"
+Step 3: Create a new credential of type "source control" called "gitea"
 
 name == gitea
 
@@ -62,11 +62,11 @@ password == `{ssh-password}`
 
 image::gitea_eda_credential.png[gitea cred,100%]
 
-Step4: Add the new project called "lightspeed"
+Step 4: Add the new project called "lightspeed"
 
 image::createproject.png[Create Project,100%]
 
-Step5: Configure the project as follows and validate that the git repository syncs properly:
+Step 5: Configure the project as follows and validate that the git repository syncs properly:
 
 === Project Settings
 [cols="2,2", options="header"]
@@ -93,7 +93,7 @@ Step5: Configure the project as follows and validate that the git repository syn
 
 image::validate_sync.png[Validate Sync,150%]
 
-Step6: Create a "rulebook activation"
+Step 6: Create a "rulebook activation"
 
 image::create_rulebook_activation.png[create rulebook activation, 100%]
 
@@ -130,13 +130,13 @@ Configure the rulebook activation as follows:
 
 image::rulebook_activation.png[Rulebook Activation, 150%]
 
-Step7: Verify Rulebook Activation
+Step 7: Verify Rulebook Activation
 
 Make sure the ospf-neighbor rulebook activation is running.
 
 image::rulebook_validate.png[rulebook validate, 150%]
 
-Step8: Review the Rulebook `ospf.yml`
+Step 8: Review the Rulebook `ospf.yml`
 
 [source, YAML]
 ----

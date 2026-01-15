@@ -43,20 +43,20 @@ image::data_inputs.png[Data Inputs, 250%]
 ==== TCP Port 5514
 Splunk has been pre-loaded to open TCP port 5514. We simply need to add a data input to receive Cisco IOS syslogs using this port.
 
-Step1:  Add a new TCP input
+Step 1:  Add a new TCP input
 
 
 image::tcp_1.png[Add TCP, 200%]
 
-Step2: Click on "New Local TCP"
+Step 2: Click on "New Local TCP"
 
 image::tcp2.png[Add TCP, 200%]
 
-Step3: Select TCP, port 5514, and click "next" 
+Step 3: Select TCP, port 5514, and click "next" 
 
 image::tcp_3.png[Add TCP, 200%]
 
-Step4: ⚙️ Configure the following input settings
+Step 4: ⚙️ Configure the following input settings
 
 === Input Settings
 [cols="2,2", options="header"]
@@ -76,7 +76,7 @@ Step4: ⚙️ Configure the following input settings
 
 image::tcp_4.png[Add TCP, 100%]
 
-Step5: Validate your configuration and submit
+Step 5: Validate your configuration and submit
 
 image::tcp_5.png[Add TCP, 150%]
 
@@ -94,15 +94,15 @@ Access AAP and run 🚀 the job-template
 image::router_setup.png[Router Setup, 150%]
 
 === Verify Syslogs
-Step1: After the Cisco router setup completes, return to splunk and click on the Cisco Networks App
+Step 1: After the Cisco router setup completes, return to splunk and click on the Cisco Networks App
 
 image::cisco_networks.png[Cisco networks, 150%]
 
-Step2: Enter the routing dashboard
+Step 2: Enter the routing dashboard
 
 image::routing_dashboard1.png[Routing Dash, 150%]
 
-Step3: Verify that there is an entry of an OSPF event with a full adjacency 
+Step 3: Verify that there is an entry of an OSPF event with a full adjacency 
 
 image::routing_dashboard2.png[Routing Dash, 250%]
 
@@ -111,14 +111,14 @@ In splunk we can create an alert from a 🔍 search. A Splunk search is when you
 
 An alert is simply that search saved to run automatically if the search results meet a trigger condition you set (like "%OSPF-5-ADJCHG: Process 1, Nbr 192.168.2.2 on Tunnel0 from FULL to DOWN"), Splunk automatically performs an action, such as sending a webhook to EDA.
 
-Step1: Access the Splunk 🔍 search field
+Step 1: Access the Splunk 🔍 search field
 
 image::search1.png[Search, 150%]
 
 [quote]
 🛑 You will return to this browser tab after completing the next step
 
-Step2: Create an OPSF neighbor down event
+Step 2: Create an OPSF neighbor down event
 Access cisco-rtr1 from the bastion console to shut down interface tunnel0
 
 image::bastion.png[bastion, 150%]
@@ -134,7 +134,7 @@ int tu 0
 shut
 ----
 
-Step3: Return to the Splunk search
+Step 3: Return to the Splunk search
 
 paste in the following line and search: 
 
@@ -147,7 +147,7 @@ image::search2.png[Search, 150%]
 image::search-3.png[Search, 150%]
 
 
-Step4: Save as an Alert (ospf-neighbor)
+Step 4: Save as an Alert (ospf-neighbor)
 
 image::save_as_alert.png[Save As, 150%]
 
@@ -181,22 +181,22 @@ For this lab environment we are using a simple webhook. However, for a more secu
 [quote]
  🛑 Do not actually configure, this section is for reference only
 
-Step1: Access the Ansible addon
+Step 1: Access the Ansible addon
 
 image::eda_addon.png[Add on, 100%]
 
-Step2: Create a webhook to EDA event-stream configuration:
+Step 2: Create a webhook to EDA event-stream configuration:
 
-image::example_event-stream.png[example, 150%]
+image::example_eventstream.png[example, 150%]
 
-Step3: Return to Edit Alert
+Step 3: Return to Edit Alert
 
 image::return_edit_alert.png[return, 100%]
 
 === Router State (Returning to the Lab)
 Here we need to return the router's OPSF neighbor to a steady state.
 
-Step1: Return the OPSF neighbor to a full adjacency
+Step 1: Return the OPSF neighbor to a full adjacency
 
 Access cisco-rtr1 from the bastion console to no shut interface tunnel0
 
