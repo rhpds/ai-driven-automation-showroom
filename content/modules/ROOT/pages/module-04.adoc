@@ -146,7 +146,7 @@ Step 7: Return to Splunk to verify the OSPF neighbor is still down
 | Value
 
 | Splunk URL
-| link:http://{target_host}:8000[Splunk,window=_blank]
+| `{splunk_url}`[Splunk,window=_blank]
 
 | Username
 | admin
@@ -187,7 +187,7 @@ Step 10: Return to 🔍 Splunk to verify the OSPF neighbor is now up with a full
 | Value
 
 | Splunk URL
-| link:http://{target_host}:8000[Splunk,window=_blank]
+| `{splunk_url}`[Splunk,window=_blank]
 
 | Username
 | admin
@@ -307,7 +307,7 @@ Step 6: Return to Splunk to verify the OSPF neighbor is still down
 | Value
 
 | Splunk URL
-| link:http://{target_host}:8000[Splunk,window=_blank]
+| `{splunk_url}`[Splunk,window=_blank]
 
 | Username
 | admin

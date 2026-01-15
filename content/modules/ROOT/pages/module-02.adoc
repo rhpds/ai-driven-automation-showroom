@@ -21,7 +21,7 @@ image::redhat_splunk.png[Red Hat + Splunk, 100%]
 | Value
 
 | Splunk URL
-| link:http://{target_host}:8000[Splunk,window=_blank]
+| `{splunk_url}`[Splunk,window=_blank]
 
 | Username
 | admin

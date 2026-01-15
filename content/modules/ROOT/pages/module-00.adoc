@@ -77,7 +77,7 @@ Think of Mattermost as a stand-in for ServiceNow in this demonstration.
 | Value
 
 | Mattermost URL
-| link:http://service1.{subdomain_base}:{mattermost_port}[Mattermost,window=_blank]
+| `{mattermost_url}`[Mattermost,window=_blank]
 
 | Username
 | ansibleadmin@ansible.com
@@ -120,7 +120,7 @@ You won’t see any messages just yet — this step is simply to explain where M
 | Ansible Automation Platform
 | AAP is preloaded in the lab interface.
 Click link if you want to open it in full tab:
-https://{nginx_web_url}[AAP Web UI,window=_blank]
+`{controller_url}`[AAP Web UI,window=_blank]
 | Username: `{lab_username}`
 Password: `{ssh_password}`
 
