@@ -11,7 +11,7 @@ asciidoc:
     page-pagination: true
     my_var: "foo"
     guid: my-guid
-    lab_username: "test"
+    lab_username: "{{ student_name }}"
     ssh_password: "{{ common_password }}"
     ssh_command: ssh someone@example.com
     page-links:
