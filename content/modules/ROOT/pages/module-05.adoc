@@ -15,7 +15,7 @@ Throughout this lab, you experienced the power of AI-driven automation across tw
 * Automatically generated remediation playbooks with Ansible Lightspeed
 * Fixed a broken Apache service without writing any playbook code manually
 
-=== Part 2: Network Automation (Optional)
+=== Part 2: Network Automation
 * Configured Splunk for network observability
 * Set up Event-Driven Ansible to respond to OSPF alerts
 * Used AI to generate network remediation playbooks for Cisco routers
@@ -224,9 +224,6 @@ This Job Template is dynamically generated from Ansible Lightspeed and stored in
 ----
 
 === `✅ Restore Apache`
-
-[quote]
-💡 This Job Template is optional
 
 *Purpose*
 If you want to return Apache to a good state (without running AIOps workflows), you can run the `✅ Restore Apache` job template.

@@ -17,7 +17,8 @@ Step 1: Review the playbook (aiops.yml)
 The playbook can be reviewed in its entirety here:
 https://{targethost}:{gitea_web_ui_port}/lab-user/lightspeed_playbooks/playbooks/aiops.yml
 
-user=lab-user password="{ssh_password}"
+user=lab-user
+password="{ssh_password}"
 
 [quote]
 ⚠️ Note, The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
@@ -166,7 +167,7 @@ image::workflow-approve.png[Approve 160%]
 
 image::approve.png[Approval, 160%]
 
-Step9: Review the `Playbook-Run-Mode` job-template in the workflow.
+Step 9: Review the `Playbook-Run-Mode` job-template in the workflow.
 
 image::workflow-run.png[Playbook run, 160%]
 
@@ -204,7 +205,9 @@ For scenario two, we'll break OSPF by misconfiguring the network type on cisco-r
 Step 1: Review the playbook (aiops.yml) 
 The playbook can be reviewed in its entirety here:
 https://{targethost}:{gitea_web_ui_port}/lab-user/lightspeed_playbooks.git
-user=lab-user password="{ssh_password}"
+
+user=lab-user
+password="{ssh_password}"
 
 [quote]
 ⚠️ Note, The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
@@ -273,7 +276,7 @@ image::bastion2.png[AAP, 150%]
 
 image::workflow_job_1.png[Workflow 1, 160%]
 
-Step4: Review the `Create Playbook AI` job-template 
+Step 4: Review the `Create Playbook AI` job-template 
 
 image::workflow_job_2.png[Workflow 1, 160%]
 
@@ -327,7 +330,7 @@ image::workflow-approve.png[Approve 3,160%]
 
 image::approve.png[Approval, 160%]
 
-Step9: Review the `Playbook-Run-Mode` job-template in the workflow.
+Step 9: Review the `Playbook-Run-Mode` job-template in the workflow.
 
 image::workflow-run.png[Playbook run, 160%]
 
@@ -372,7 +375,9 @@ For scenario three, we'll break OSPF by misconfiguring the hello timer on cisco-
 Step 1: Review the playbook (aiops.yml) 
 The playbook can be reviewed in its entirety here:
 https://{targethost}:{gitea_web_ui_port}/lab-user/lightspeed_playbooks.git
-user=lab-user password="{ssh_password}"
+
+user=lab-user 
+password="{ssh_password}"
 
 [quote]
 ⚠️ Note, The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
@@ -441,7 +446,7 @@ image::bastion2.png[AAP, 150%]
 
 image::workflow_job_1.png[Workflow 1, 160%]
 
-Step4: Review the `Create Playbook AI` job-template 
+Step 4: Review the `Create Playbook AI` job-template 
 
 image::workflow_job_2.png[Workflow 1, 160%]
 
@@ -478,7 +483,7 @@ image::workflow-approve.png[Approve 3,160%]
 
 image::approve.png[Approval, 160%]
 
-Step9: Review the `Playbook-Run-Mode` job-template in the workflow.
+Step 9: Review the `Playbook-Run-Mode` job-template in the workflow.
 
 image::workflow-run.png[Playbook run, 160%]
 

@@ -66,7 +66,7 @@ For this workshop are there four (4) Parts:
 
 4. *Execute HTTPD Remedation* - This is the final Job Template that will actually fix the application outage on the RHEL webserver.
 
-5. *Optional:* *AI Driven Ansible for Network Automation* - This lab synthesizes the 🧠 AI skills from the preceding sections of the {lab_name} into a practical network automation scenario.
+5. *AI Driven Ansible for Network Automation* - This lab synthesizes the 🧠 AI skills from the preceding sections of the {lab_name} into a practical network automation scenario.
 
 [quote]
 💡 Could this all be one workflow? Yes.  This is purposely broken up at natural breakpoints where a human user can review what the AIOps workflow is doing and course correct if required.  This also allows organization to incrementally adopt AIOps workflows.  Organization can benefit greatly from any of these individual parts!
@@ -120,8 +120,8 @@ This lab environment includes a variety of tools working together to demonstrate
 | AAP is preloaded in the lab interface.
 Click link if you want to open it in full tab:
 https://{nginx_web_url}[AAP Web UI,window=_blank]
-| Username: `{lab_username}`
-Password: `{ssh_password}`
+| Username: `{ansible_automation_platform_configuration_username}`
+Password: `{ansible_automation_platform_configuration_password}`
 
 | Gitea
 | https://{targethost}:{gitea_web_ui_port}[Gitea Web UI,window=_blank]
@@ -135,7 +135,7 @@ Password: `{ssh_password}`
 
 | Splunk 
 | link:http://{target_host}:8000[Splunk,window=_blank]
-| Username: `{lab_username}`
+| Username: admin
 Password: `{ssh_password}`
 
 |===
@@ -152,16 +152,19 @@ You now have everything you need to start the core AIOps lab! In the following m
 
 [NOTE]
 ====
-**Looking for more?** After completing the core lab (Modules 1-3), there's an optional Part 2 that applies these same AI-driven automation concepts to **network automation**. Details below!
+**This lab has two independent parts!** You can complete Part 1, Part 2, or both—in any order. If you've already completed Part 1 and want to explore a more advanced scenario, feel free to skip ahead to Part 2.
 ====
 
-== Part 2: AI Driven Ansible for Network Automation (Optional)
+== Part 2: AI Driven Ansible for Network Automation
 
 image::splunk-logo.png[splunk,150]
 
-Once you've completed the core AIOps workflow with Apache remediation, you can continue your journey by applying the same AI-driven principles to **network automation**.
+[IMPORTANT]
+====
+**Highly Recommended!** While Part 2 can be completed independently, we strongly encourage you to complete this section. Part 1 provides a **basic introduction** to AIOps concepts using a simple Apache service remediation. Part 2 takes these concepts further with a **more complex, real-world networking scenario** that demonstrates the true power of AI-driven automation at scale.
+====
 
-This optional section synthesizes the 🧠 AI skills from the preceding modules into a practical network automation scenario. You will leverage AI to generate Ansible playbooks designed to troubleshoot **OSPF routing issues** on Cisco routers.
+Part 2 synthesizes the 🧠 AI skills from the preceding modules into a practical network automation scenario. You will leverage AI to generate Ansible playbooks designed to troubleshoot **OSPF routing issues** on Cisco routers—a more sophisticated use case that showcases how AIOps can handle complex infrastructure challenges.
 
 === Why Network Automation?
 
@@ -204,11 +207,16 @@ Lets get started 🚀
 a|
 **Part 1: AIOps with Apache Remediation** (Modules 1-3)
 
-Start here! Build your first AI-driven self-healing workflow.
+A **basic introduction** to AIOps—learn the fundamentals by building a self-healing workflow for Apache service failures.
 
-**Part 2: Network Automation** (Modules 4-6)
+**Part 2: Network Automation** (Modules 4-5) ⭐ _Highly Recommended_
 
-_Optional:_ Apply the same concepts to OSPF troubleshooting on Cisco routers.
+A **more complex scenario** applying AIOps to OSPF troubleshooting on Cisco routers. Demonstrates real-world network automation at scale.
 |===
+
+[TIP]
+====
+**Choose your path:** Both parts are independent and can be completed in any order. New to AIOps? Start with Part 1. Already familiar with the basics or completed Part 1 previously? Jump straight to Part 2 for a deeper dive into network automation.
+====
 
 Click the link below to proceed to **Module 1: Log Enrichment and Prompt Generation Workflow**.

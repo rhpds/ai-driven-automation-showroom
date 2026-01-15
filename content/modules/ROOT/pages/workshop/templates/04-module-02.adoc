@@ -164,9 +164,9 @@ image::{{ exercise1-success }}.png[align="center",width=600,title="Exercise 1 Su
 image::{{ before-optimization }}.png[align="left",width=300,title="Basic Approach"]
 image::{{ after-optimization }}.png[align="right",width=300,title="Optimized Approach"]
 
-== Challenge exercise (Optional)
+== Challenge exercise
 
-{{ Description of optional challenge for advanced participants }}.
+{{ Description of challenge for advanced participants }}.
 
 === Challenge requirements
 * {{ Requirement 1 }}
