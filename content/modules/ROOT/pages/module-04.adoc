@@ -15,7 +15,7 @@ In this first scenario we will cause an OSPF neighbor down by intentionally shut
 
 Step 1: Review the playbook (aiops.yml) 
 The playbook can be reviewed in its entirety here:
-https://{targethost}:{gitea_web_ui_port}/lab-user/lightspeed_playbooks/playbooks/aiops.yml
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml
 
 user=lab-user
 password="{ssh_password}"
@@ -119,7 +119,7 @@ You should see a recently updated file for lightspeed_response.yml in the lights
 | System | URL | Credentials
 
 | Gitea
-| https://{targethost}:{gitea_web_ui_port}[Gitea Web UI,window=_blank]
+| `{gitea_url}`[Gitea Web UI,window=_blank]
 | Username: `{lab_username}`
 Password: `{ssh_password}`
 
@@ -204,7 +204,7 @@ For scenario two, we'll break OSPF by misconfiguring the network type on cisco-r
 
 Step 1: Review the playbook (aiops.yml) 
 The playbook can be reviewed in its entirety here:
-https://{targethost}:{gitea_web_ui_port}/lab-user/lightspeed_playbooks.git
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml
 
 user=lab-user
 password="{ssh_password}"
@@ -374,7 +374,7 @@ For scenario three, we'll break OSPF by misconfiguring the hello timer on cisco-
 
 Step 1: Review the playbook (aiops.yml) 
 The playbook can be reviewed in its entirety here:
-https://{targethost}:{gitea_web_ui_port}/lab-user/lightspeed_playbooks.git
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml
 
 user=lab-user 
 password="{ssh_password}"

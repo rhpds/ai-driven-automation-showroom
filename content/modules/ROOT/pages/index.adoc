@@ -119,22 +119,22 @@ This lab environment includes a variety of tools working together to demonstrate
 | Ansible Automation Platform
 | AAP is preloaded in the lab interface.
 Click link if you want to open it in full tab:
-https://{nginx_web_url}[AAP Web UI,window=_blank]
+`{controller_url}`[AAP Web UI,window=_blank]
 | Username: `{ansible_automation_platform_configuration_username}`
 Password: `{ansible_automation_platform_configuration_password}`
 
 | Gitea
-| https://{targethost}:{gitea_web_ui_port}[Gitea Web UI,window=_blank]
+| `{gitea_url}`[Gitea Web UI,window=_blank]
 | Username: `{lab_username}`
 Password: `{ssh_password}`
 
 | Mattermost
-| http://service1.{subdomain_base}:{mattermost_port}[Mattermost,window=_blank]
+| `{mattermost_url}`[Mattermost,window=_blank]
 | Username: ansibleadmin@ansible.com
 Password: `{ssh_password}`
 
 | Splunk 
-| link:http://{target_host}:8000[Splunk,window=_blank]
+| `{splunk_url}`[Splunk,window=_blank]
 | Username: admin
 Password: `{ssh_password}`
 
