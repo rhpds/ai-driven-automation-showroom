@@ -84,7 +84,7 @@ Step 5: Configure the project as follows and validate that the git repository sy
 | Git
 
 | Source control URL
-| https://{targethost}:{gitea_web_ui_port}/lab-user/lightspeed_playbooks.git
+| https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml
 
 | Source control credential
 | gitea
