@@ -120,8 +120,8 @@ You should see a recently updated file for lightspeed_response.yml in the lights
 
 | Gitea
 | link:{gitea_url}[Gitea Web UI,window=_blank]
-| Username: `{lab_username}`
-Password: `{ssh_password}`
+| Username: `{gitea_username}`
+Password: `{gitea_password}`
 
 |===
 

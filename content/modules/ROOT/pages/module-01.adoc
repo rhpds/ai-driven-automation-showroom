@@ -22,7 +22,7 @@ By separating these two parts into distinct workflows, we allow for manual revie
 
 [source,bash]
 ----
-[lab-user@bastion ~]$ ssh node1
+[lab-user@bastion ~]$ sudo ssh node1
 Last login: Tue Apr  8 15:56:41 2025 from 192.168.0.37
 [ec2-user@node1 ~]$
 ----
@@ -295,10 +295,10 @@ Use the following information to log in to Gitea and review the generated playbo
 | link:{gitea_url}[Gitea Web UI,window=_blank]
 
 | Username
-| `{lab_username}`
+| `{gitea_username}`
 
 | Password
-| `{ssh_password}`
+| `{gitea_password}`
 |===
 
 
@@ -345,7 +345,7 @@ image::blue_finish_button.png[blue_finish_button,150]
 
 [source,bash]
 ----
-[lab-user@bastion ~]$ ssh node1
+[lab-user@bastion ~]$ sudo ssh node1
 Last login: Tue Apr  8 15:56:41 2025 from 192.168.0.37
 [ec2-user@node1 ~]$
 ----

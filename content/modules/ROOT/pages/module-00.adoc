@@ -15,14 +15,10 @@ By organizing these steps into a workflow, we simulate how multiple tools can co
 
 == Introducing AI with Ansible
 
-Red Hat AI is already deployed in this lab and powered by the **Granite LLM** model. You can interact with this AI using simple `curl` commands or trigger it through Job Templates via Ansible Automation Platform.
+This lab uses a managed AI inference service powered by the **Granite LLM** model. You can interact with this AI using simple `curl` commands or trigger it through Job Templates via Ansible Automation Platform.
 
-Red Hat AI is deployed using two Ansible Content Collections:
-
-* `redhat.ai` (Certified)
-* `infra.ai` (Validated)
-
-These are available as part of your AAP subscription, giving your organization a quick and validated path to deploy generative AI models using automation.
+[quote]
+💡 **Want to deploy your own AI infrastructure?** Red Hat AI can be deployed using Ansible Content Collections like `redhat.ai` (Certified) and `infra.ai` (Validated), available as part of your AAP subscription. These collections provide a validated path to deploy generative AI models using automation. For this lab, we're using a managed service to simplify the setup, but the same workflow concepts apply whether you're using a managed service or self-hosted AI infrastructure.
 
 === Try It Yourself: Talk to the AI!
 
@@ -33,11 +29,11 @@ Before diving into the workflow, let’s see how easy it is to test this out you
 
 [source, shell, role="execute", subs="attributes+"]
 ----
-curl -X POST http://rhelai.example.com:8000/v1/completions \
+curl -X POST {litellm_api_base_url}/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer {ssh_password}" \
+  -H "Authorization: Bearer {litellm_virtual_key}" \
   -d '{
-    "model": "/root/.cache/instructlab/models/granite-8b-lab-v1",
+    "model": "{litellm_available_models_list}",
     "prompt": "What is the capital of USA?",
     "max_tokens": 100,
     "temperature": 0
@@ -48,11 +44,11 @@ You can also try real-world prompts like:
 
 [source, shell, role="execute", subs="attributes+"]
 ----
-curl -X POST http://rhelai.example.com:8000/v1/completions \
+curl -X POST {litellm_api_base_url}/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer {ssh_password}" \
+  -H "Authorization: Bearer {litellm_virtual_key}" \
   -d '{
-    "model": "/root/.cache/instructlab/models/granite-8b-lab-v1",
+    "model": "{litellm_available_models_list}",
     "prompt": "systemd[1]: httpd.service: Failed with result exit-code. Suggest a fix for Apache.",
     "max_tokens": 150,
     "temperature": 0.6
@@ -80,10 +76,10 @@ Think of Mattermost as a stand-in for ServiceNow in this demonstration.
 | link:{mattermost_url}[Mattermost,window=_blank]
 
 | Username
-| ansibleadmin@ansible.com
+| `{mattermost_username}`
 
 | Password
-| `{ssh_password}`
+| `{mattermost_password}`
 |===
 
 	1.	Open mattermost using the above details
@@ -121,8 +117,8 @@ You won’t see any messages just yet — this step is simply to explain where M
 | AAP is preloaded in the lab interface.
 Click link if you want to open it in full tab:
 link:{controller_url}[AAP Web UI,window=_blank]
-| Username: `{lab_username}`
-Password: `{ssh_password}`
+| Username: `{controller_username}`
+Password: `{controller_password}`
 
 |===
 
