@@ -337,7 +337,6 @@ image::blue_next_button.png[blue_next_button,150]
 5 Review and click the blue *Finish* button.
 
 image::blue_finish_button.png[blue_finish_button,150]
-
 == Check Success
 
 1. Connect to your bastion host either via SSH or Visual Studio Code.  The connection information is provided by your instructor.
@@ -391,6 +390,39 @@ You have
 
 image::aiops-cool.gif[aiops-cool]
 
+'''
+
+== 🎉 Congratulations! You've Completed Part 1!
+
+You have successfully completed the core AIOps workflow! You've experienced firsthand how **Red Hat AI**, **Ansible Lightspeed**, and **Ansible Automation Platform** can work together to create intelligent, self-healing infrastructure.
+
+=== What You Accomplished
+
+* ✅ Built an AI-powered log enrichment workflow
+* ✅ Used Red Hat AI to analyze incidents and generate insights
+* ✅ Leveraged Ansible Lightspeed to automatically create remediation playbooks
+* ✅ Fixed a broken Apache service without writing a single line of playbook code
+
+'''
+
+== Ready for More? Welcome to Part 2!
+
+image::splunk-logo.png[splunk,150]
+
+If you're interested in exploring how these same AI-driven automation concepts apply to **network automation**, continue to Part 2!
+
+In the next modules, you'll apply everything you've learned to a **network automation scenario** involving:
+
+* 🔍 **Splunk** for network observability and alerting
+* 📡 **Event-Driven Ansible** responding to OSPF routing issues
+* 🧠 **Ansible Lightspeed** generating network remediation playbooks
+* 🌐 **Cisco routers** with OSPF configuration challenges
+
+[NOTE]
+====
+**Part 2 is optional.** If you'd like to skip to the Summary and Call to Actions, you can navigate there directly from the menu.
+====
+
 == Complete
 
-You have completed module 01.
+Click the link below to continue to **Module 3: Splunk** and begin Part 2, or skip ahead to the Summary.

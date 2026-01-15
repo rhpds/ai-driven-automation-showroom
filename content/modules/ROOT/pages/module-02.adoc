@@ -1,242 +1,222 @@
-= Section 3 - Summary and Call to Actions
+= Section 3 - Splunk
 
-You have completed the lab. This section will help you go further by documenting all the Ansible Playbooks and showing you how they work!
+In this lab environment, we've included 🔍 Splunk to integrate with 📡 Event Driven Ansible (EDA). Splunk collects and indexes log files and other data from network sources in real-time. This indexed data is then stored in a way that allows for incredibly fast and flexible searching and analysis. From a splunk search for OSPF related events, we can create a splunk alert to send webhooks or kafka topics to EDA. 
 
-image::thumbs-up.gif[thumbsup!]
-
-== Summary of Job Templates
-
-Here's a recap of the job templates and rulebooks used in the lab:
-(in chronological order):
-
-Glossary:
-
-*RB* = Rulebook (for Event-Driven Ansible)
-*JT* = Job Template (for executing Ansible Playbooks)
-
-|===
-| Name | Purpose
-| `❌ Break Apache` | JT simulates a failure in the Apache config
-| `Web App` | RB that watches Kafka queue for httpd disruption
-| `⚙️ Apache Service Status Check` | JT that checks the current state of Apache
-| `🤖 RHEL AI: Analyze Incident` | JT that uses RHEL AI to understand the error
-| `📣 Notify via Mattermost` | JT sends incident details to a chat system
-| `⚙️ Build Ansible Lightspeed Job Template` | JT that creates a JT to generate playbooks
-| `🧠 Lightspeed Remediation Playbook Generator` | JT that uses Lightspeed to generate the fix
-| `🧾 Commit Fix to Gitea` | JT pushes the generated playbook to Git
-| `Sync Project` | Workflow node that syncs Gitea project with dynamically created playbooks
-| `⚙️ Build HTTPD Remediation Template` | JT that creates another JT to apply the AI-generated fix
-| `✅ Execute HTTPD Remediation` | JT for Final fix (launched manually)
-| `✅ Restore Apache` | JT that Restores Apache to a known-good config
-|===
-
-Now here is a walkthrough in the same chronological order:
-
-=== `❌ Break Apache`
-*Purpose:* Introduces a known bad directive in `/etc/httpd/conf/httpd.conf` to cause Apache failure
-
-*What happens next:*
-
-- Filebeat detects the service issue
-- Kafka forwards the event
-- EDA rulebook matches and triggers `AI Insights and Lightspeed prompt generation` workflow
-
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_break.yml[Github Link,window=_blank]
-
-== EDA Reponse
-
-image::eda_response.png[eda response,500]
-
-=== `Web App`
-
-*Purpose:*
-Checks for httpd disruption in a Kafka queue
-
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/web_app.yml[Ansible Rulebook,window=_blank]
-
-== AI Insights and Lightspeed prompt generation workflow
-
-Also known as the `Enrichment Workflow` for short!
-
-image::enrichment_workflow_diagram.png[enrichment_workflow]
-
-=== `⚙️ Apache Service Status Check`
-
-*Purpose:*
-Checks whether Apache is active and logs its status.
-
-*What it does:*
-
-- Runs `systemctl status httpd`
-- Collects output and logs it
-- Output is consumed by the next steps (Red Hat AI and Mattermost)
-
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/systemd_check_status.yml[Github Link,window=_blank]
-
-
-=== `🤖 RHEL AI: Analyze Incident`
-
-*Purpose:*
-Uses Red Hat AI inference service to understand the failure message.
-
-*What it does:*
-
-- Sends logs
-- Returns a natural-language description of the error
-- Suggests what kind of automation could fix it
-
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/rhelai_inference_survey.yml[Github Link,window=_blank]
-
-=== `📣 Notify via Mattermost`
-
-*Purpose:*
-Sends a human-readable incident message to a Mattermost channel.
-
-*What it does:*
-
-- Formats the AI response and Apache status
-- Pushes it to a channel using Mattermost Webhook
-- Simulates integration with a real ITSM tool like ServiceNow
-
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/mattermost_first_message.yml[Github Link,window=_blank]
-
-=== `⚙️ Build Ansible Lightspeed Job Template`
-
-*Purpose:* Creates a new job template for the second workflow
-
-*What it does:*
-
-- Create a job template with a survey that includes:
-
-  * A user-defined prompt field
-  * A pre-filled prompt from Red Hat AI output
-
-*Why this is important:*
-
-This allows Ansible Lightspeed to generate a remediation playbook without writing code manually. The job template created here will be used in the second workflow.
-
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/aap_create_job_template.yml[Github Link,window=_blank]
-
-== Remediation Workflow
-
-image::remediation_workflow.png[remedation_workflow]
-
-=== `🧠 Lightspeed Remediation Playbook Generator`
-
-*Purpose:*
-Runs the job template created in the previous workflow `AI Insights and Lightspeed prompt generation` to generate a playbook from the AI prompt.
-
-*What it does:*
-
-- Uses Lightspeed to turn a prompt into a YAML playbook
-- Stores the result locally as `lightspeed-response.yml`
-
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/lightspeed_generate.yml[Github Link,window=_blank]
-
-=== `🧾 Commit Fix to Gitea`
-
-*Purpose:*
-Pushes the generated playbook to the Gitea Git repository.
-
-*What it does:*
-
-- Authenticates with Gitea
-- Commits `lightspeed-response.yml`
-- Makes the playbook available for automation use
-
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/scm_pr.yml[Github Link,window=_blank]
-
-=== `Sync Project to Lightspeed-Playbooks`
-
-*Purpose:*
-Syncs the git project from Gitea to Ansible Automation Platform
+Think of Splunk as an observability tool. 
 
 [quote]
-💡 This is not a Job Template, but a built-in node that will sync Git projects within the workflow visualizer
+💡 Observability tools, such as Splunk, Prometheus, Grafana, Dynatrace, and others, provide deep insights into the health and performance of IT systems. They excel at collecting metrics, logs, and traces to identify when something is wrong. However, they traditionally rely on human intervention to interpret the alerts and take corrective action. This is where Ansible EDA steps in, creating a powerful synergy.
 
-=== `⚙️ Build HTTPD Remediation Template`
+== Splunk Setup and Router Configuration
 
-*Purpose:*
-Creates a new job template that uses the playbook pushed by Ansible Lightspeed to fix the Apache (httpd) service.
+=== Red Hat + Splunk
+The integration between Red Hat Ansible Automation Platform and Splunk creates a powerful, two-way bridge that transforms IT operations by connecting Splunk's deep data analysis and observability with Ansible's robust automation capabilities. This is achieved through an add-on that allows for a seamless flow of information. 
 
-*What it does:*
+image::redhat_splunk.png[Red Hat + Splunk, 100%]
 
-- Creates a new Job Template called `Execute HTTPD Remediation`
-- Uses the dynamically generated `lightspeed-response.yml` playbook
-- Sets up the credentials, inventory and prompt for limit
+=== Accessing Splunk
+[cols="2,2", options="header"]
+|===
+| Component
+| Value
 
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_remediation_job_template.yml[Github Link,window=_blank]
+| Splunk URL
+| link:http://{target_host}:8000[Splunk,window=_blank]
 
-== `Execute HTTPD Remediation`
+| Username
+| admin
 
-*Purpose*
-Fix httpd on the RHEL webserver
+| Password
+| `{ssh_password}`
+|===
 
-*What is does*
+	1.	Open Splunk using the above details ( use incognito window if needed )
+	2.	Login using the credentials provided
 
-- Removes the bad syntax from the httpd configuration file
-- Restarts the httpd service
+=== Data Inputs
+In Splunk, 🔍 "data inputs" are the various methods and sources from which the platform can ingest data for indexing, searching, and analysis. They are the pathways that feed raw machine data into the Splunk system.
+  	
+Once logged into Splunk, click on the settings at the top of the screen and data inputs
 
-*Ansible Playbook:*
-This Job Template is dynamically generated from Ansible Lightspeed and stored in your Gitea instance.  The Ansible Playbook should look similar to this:
+image::data_inputs.png[Data Inputs, 250%]
 
-[source,yaml]
-----
-- name: Fix httpd
-  become: true
-  hosts: all
-  tasks:
+==== TCP Port 5514
+Splunk has been pre-loaded to open TCP port 5514. We simply need to add a data input to receive Cisco IOS syslogs using this port.
 
-    - name: Remove line that contains InvalidDirectiveHere
-      ansible.builtin.lineinfile:
-        path: /etc/httpd/conf/httpd.conf
-        regexp: ^InvalidDirectiveHere
-        state: absent
+Step1:  Add a new TCP input
 
-    - name: Restart httpd
-      ansible.builtin.service:
-        name: httpd
-        state: restarted
-----
 
-=== `✅ Restore Apache`
+image::tcp_1.png[Add TCP, 200%]
+
+Step2: Click on "New Local TCP"
+
+image::tcp2.png[Add TCP, 200%]
+
+Step3: Select TCP, port 5514, and click "next" 
+
+image::tcp_3.png[Add TCP, 200%]
+
+Step4: ⚙️ Configure the following input settings
+
+=== Input Settings
+[cols="2,2", options="header"]
+|===
+| Component
+| Value
+
+| Source Type
+| cisco:ios
+
+| App Context
+| Cisco Networks (cisco:ios)
+
+| Host 
+| IP
+|===
+
+image::tcp_4.png[Add TCP, 100%]
+
+Step5: Validate your configuration and submit
+
+image::tcp_5.png[Add TCP, 150%]
+
+=== Cisco Routers 
+
+This lab includes two Cisco Cat8000v routers. Both routers use interface tunnel0 for the OPSF connection. 
+
+==== Router setup playbook
+This job template, "Network-Router-Setup," automates the initial configuration of network routers.
+
+In addition to establishing OSPF routing, this playbook now configures the target device (e.g., cisco-rtr1) to send all syslog messages to Splunk over TCP port 5514 for centralized logging and monitoring.
+
+Access AAP and run 🚀 the job-template
+
+image::router_setup.png[Router Setup, 150%]
+
+=== Verify Syslogs
+Step1: After the Cisco router setup completes, return to splunk and click on the Cisco Networks App
+
+image::cisco_networks.png[Cisco networks, 150%]
+
+Step2: Enter the routing dashboard
+
+image::routing_dashboard1.png[Routing Dash, 150%]
+
+Step3: Verify that there is an entry of an OSPF event with a full adjacency 
+
+image::routing_dashboard2.png[Routing Dash, 250%]
+
+=== ⚙️ Configure an Alert 📣
+In splunk we can create an alert from a 🔍 search. A Splunk search is when you manually run a query to find and analyze information in your data.
+
+An alert is simply that search saved to run automatically if the search results meet a trigger condition you set (like "%OSPF-5-ADJCHG: Process 1, Nbr 192.168.2.2 on Tunnel0 from FULL to DOWN"), Splunk automatically performs an action, such as sending a webhook to EDA.
+
+Step1: Access the Splunk 🔍 search field
+
+image::search1.png[Search, 150%]
 
 [quote]
-💡 This Job Template is optional
+🛑 You will return to this browser tab after completing the next step
 
-*Purpose*
-If you want to return Apache to a good state (without running AIOps workflows), you can run the `✅ Restore Apache` job template.
+Step2: Create an OPSF neighbor down event
+Access cisco-rtr1 from the bastion console to shut down interface tunnel0
 
-*What it does*
+image::bastion.png[bastion, 150%]
 
-- Should be mostly identical to what you see above for the `Execute HTTPD Remediation`
+* SSH password=`{ssh_password}` 
+* SSH into cisco-rtr1 and add the following commands
+ 
+[source, BASH]
+----
+ssh admin@cisco-rtr1
+config t
+int tu 0
+shut
+----
+
+Step3: Return to the Splunk search
+
+paste in the following line and search: 
+
+[source, BASH]
+----
+ %OSPF-5-ADJCHG: Process 1, Nbr 192.168.2.2 on Tunnel0 from FULL to DOWN
+----
+
+image::search2.png[Search, 150%]
+image::search-3.png[Search, 150%]
 
 
-*Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_fix.yml[Github Link,window=_blank]
+Step4: Save as an Alert (ospf-neighbor)
 
-== Call to action
+image::save_as_alert.png[Save As, 150%]
 
-image::ansible-aiops.jpeg[picture of homer,300]
+Complete the pop-up screen for save as an alert
 
-Here are some recommended nexst steps in your Ansible AIOps journey:
+=== Alert Settings
+[cols="2,2", options="header"]
+|===
+| Title
+| ospf-neighbor
 
-- https://youtube.com/ansibleautomation?sub_confirmation=1[Subscribe to our YouTube page,window=_blank]
+| Permissions
+| Shared in App
 
-  * Check out the AI + Ansible YouTube https://youtube.com/playlist?list=PLdu06OJoEf2Y9-d7vPaKSh6ED_rO6AQFF&si=AFgrSb_FDHrU_TE6[playlist,window=_blank]
+| Alert type
+| Real-time
 
-- https://labs.demoredhat.com/[Bookmark our technical workshops page,window=_blank]
-- https://developers.redhat.com/products/ansible/overview[Check out developers.redhat.com,window=_blank] and get a home lab license.
-- https://www.redhat.com/en/services/training/do007-ansible-essentials-simplicity-automation-technical-overview[Sign up for free Red Hat training,window=_blank]
+| Add Actions
+| Add to Triggered Alerts
+| Add Actions
+| Webhook
+    | URL
+    | http://controller.example.com
+|===
 
-Are you ready to implement now?
+image::save_as_alert2.png[Save As, 100%]
 
-- https://www.redhat.com/en/contact[Contact Red Hat,window=_blank]
+=== 📡 Event Driven Ansible Addon (Reference Only)
+For this lab environment we are using a simple webhook. However, for a more secure webhook, Splunk offers the Ansible EDA addon to integrate with EDA event streams. EDA event streams allow for token based authentication as well as storing a history of events. 
+
+[quote]
+ 🛑 Do not actually configure, this section is for reference only
+
+Step1: Access the Ansible addon
+
+image::eda_addon.png[Add on, 100%]
+
+Step2: Create a webhook to EDA event-stream configuration:
+
+image::example_event-stream.png[example, 150%]
+
+Step3: Return to Edit Alert
+
+image::return_edit_alert.png[return, 100%]
+
+=== Router State (Returning to the Lab)
+Here we need to return the router's OPSF neighbor to a steady state.
+
+Step1: Return the OPSF neighbor to a full adjacency
+
+Access cisco-rtr1 from the bastion console to no shut interface tunnel0
+
+image::bastion.png[bastion, 150%]
+
+* SSH password=`{ssh_password}` 
+* SSH into cisco-rtr1 and add the following commands
+
+[source, BASH] 
+----
+ssh admin@cisco-rtr1
+config t
+int tu 0
+no shut
+----
+
+== Summary
+
+The Cisco router and Splunk are ⚙️ configured to observe and create alerts for OSPF neighbor down states. 
+
+== Complete
+
+You have completed this module. Move forward to the next section to ⚙️configure the Ansible EDA controller.

@@ -1,180 +1,263 @@
-= Section 9 - Event Driven Ansible
+= Section 6 - Summary and Call to Actions
 
-What is Event-Driven Ansible❓ 
-📡 Event-Driven Ansible (EDA) is an automation capability that listens for events in your IT environment—like system alerts, security warnings, or network issues—and automatically triggers predefined actions in response. Instead of running tasks on a schedule, EDA uses "if-this-then-that" logic defined in Ansible Rulebooks to react to situations in real time.
+🎉 **Congratulations!** You have completed the {lab_name}!
 
-How does EDA create a feedback loop (Observe, Evaluate, Respond)❓
-EDA works by creating a continuous, automated feedback loop that mirrors the Observe-Evaluate-Respond model:
+This section will help you go further by documenting all the Ansible Playbooks and showing you how they work!
 
-image::eda.png[EDA, 150%]
+image::thumbs-up.gif[thumbsup!]
 
-*Observe*: It constantly listens to event sources like monitoring tools (e.g., Prometheus, Datadog) or security systems for notifications about the state of your infrastructure.
+== What You Accomplished
 
-*Evaluate*: When an event is received, an Ansible Rulebook instantly evaluates it against a set of rules to determine what needs to be done.
+Throughout this lab, you experienced the power of AI-driven automation across two domains:
 
-*Respond*: Based on the decision, it automatically executes an action, such as running an Ansible Playbook to fix the problem, update a system, or send a notification.
+=== Part 1: AIOps with Apache Remediation
+* Built an intelligent log enrichment workflow using Red Hat AI
+* Automatically generated remediation playbooks with Ansible Lightspeed
+* Fixed a broken Apache service without writing any playbook code manually
 
-*Key Applications*: Ticket Triage & Self-Healing Networks
-This automated loop directly enables advanced IT operations:
+=== Part 2: Network Automation (Optional)
+* Configured Splunk for network observability
+* Set up Event-Driven Ansible to respond to OSPF alerts
+* Used AI to generate network remediation playbooks for Cisco routers
 
-*Automated Ticket Triage*: EDA can catch an alert, automatically run diagnostics, and then create a service desk ticket that is already enriched with all the necessary information, drastically reducing manual effort and response times.
+== Summary of Job Templates
 
-*Self-Healing Networks*: When a network monitoring tool detects a problem like a failed link, EDA can immediately trigger a playbook to re-route traffic and restore service without any human intervention, creating a resilient, self-healing system.
+Here's a recap of the job templates and rulebooks used in the lab:
+(in chronological order):
 
-In short, 📡 Event-Driven Ansible connects your tools, codifies your operational knowledge into rules, and automates your response to create faster, more reliable, and more efficient IT operations.
+Glossary:
 
-== ⚙️ Event Driven Ansible Setup
-
-Earlier we configured a Splunk alert, now we need to configure Event Driven Ansible to receive the splunk alert as a webhook.
-
-=== Accessing EDA
-[cols="2,2", options="header"]
-|===
-| Component
-| Value
-
-| Username
-| lab-user
-
-| Password
-| `{ssh_password}`
-|===
-
-Step1: Open EDA from the AAP tab
-
-image::bastion2.png[AAP]
-
-Step2: Navigate to "Automation Decisions" / "infrastructure" / "Credentials"
-
-image::automation_decisions.png[automation decisions, 100%]
-
-Step3: Create a new credential of type "source control" called "gitea"
-
-name == gitea
-
-credential type == source control
-
-organization == Default
-
-user == lab-user
-
-password == `{ssh-password}`
-
-image::gitea_eda_credential.png[gitea cred,100%]
-
-Step4: Add the new project called "lightspeed"
-
-image::createproject.png[Create Project,100%]
-
-Step5: Configure the project as follows and validate that the git repository syncs properly:
-
-=== Project Settings
-[cols="2,2", options="header"]
-|===
-| Component
-| Value
-
-| Name
-| lightspeed
-
-| Organization
-| Default
-
-| Source control type
-| Git
-
-| Source control URL
-| https://{targethost}:{gitea_web_ui_port}/lab-user/lightspeed_playbooks.git
-
-| Source control credential
-| gitea
+*RB* = Rulebook (for Event-Driven Ansible)
+*JT* = Job Template (for executing Ansible Playbooks)
 
 |===
-
-image::validate_sync.png[Validate Sync,150%]
-
-Step6: Create a "rulebook activation"
-
-image::create_rulebook_activation.png[create rulebook activation, 100%]
-
-Configure the rulebook activation as follows:
-
-=== Rulebook Activation
-[cols="2,2", options="header"]
-|===
-| Component
-| Value
-
-| Name
-| ospf-neighbor
-
-| Organization
-| Default
-
-| Project
-| lightspeed
-
-| Rulebook
-| ospf.yml
-
-| Credential
-| gitea
-
-| Decision environment
-| Kafka Decision Environment
-
-| log level
-| Debug
-
+| Name | Purpose
+| `❌ Break Apache` | JT simulates a failure in the Apache config
+| `Web App` | RB that watches Kafka queue for httpd disruption
+| `⚙️ Apache Service Status Check` | JT that checks the current state of Apache
+| `🤖 RHEL AI: Analyze Incident` | JT that uses RHEL AI to understand the error
+| `📣 Notify via Mattermost` | JT sends incident details to a chat system
+| `⚙️ Build Ansible Lightspeed Job Template` | JT that creates a JT to generate playbooks
+| `🧠 Lightspeed Remediation Playbook Generator` | JT that uses Lightspeed to generate the fix
+| `🧾 Commit Fix to Gitea` | JT pushes the generated playbook to Git
+| `Sync Project` | Workflow node that syncs Gitea project with dynamically created playbooks
+| `⚙️ Build HTTPD Remediation Template` | JT that creates another JT to apply the AI-generated fix
+| `✅ Execute HTTPD Remediation` | JT for Final fix (launched manually)
+| `✅ Restore Apache` | JT that Restores Apache to a known-good config
 |===
 
-image::rulebook_activation.png[Rulebook Activation, 150%]
+Now here is a walkthrough in the same chronological order:
 
-Step7: Verify Rulebook Activation
+=== `❌ Break Apache`
+*Purpose:* Introduces a known bad directive in `/etc/httpd/conf/httpd.conf` to cause Apache failure
 
-Make sure the ospf-neighbor rulebook activation is running.
+*What happens next:*
 
-image::rulebook_validate.png[rulebook validate, 150%]
+- Filebeat detects the service issue
+- Kafka forwards the event
+- EDA rulebook matches and triggers `AI Insights and Lightspeed prompt generation` workflow
 
-Step8: Review the Rulebook `ospf.yml`
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_break.yml[Github Link,window=_blank]
 
-[source, YAML]
+== EDA Reponse
+
+image::eda_response.png[eda response,500]
+
+=== `Web App`
+
+*Purpose:*
+Checks for httpd disruption in a Kafka queue
+
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/web_app.yml[Ansible Rulebook,window=_blank]
+
+== AI Insights and Lightspeed prompt generation workflow
+
+Also known as the `Enrichment Workflow` for short!
+
+image::enrichment_workflow_diagram.png[enrichment_workflow]
+
+=== `⚙️ Apache Service Status Check`
+
+*Purpose:*
+Checks whether Apache is active and logs its status.
+
+*What it does:*
+
+- Runs `systemctl status httpd`
+- Collects output and logs it
+- Output is consumed by the next steps (Red Hat AI and Mattermost)
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/systemd_check_status.yml[Github Link,window=_blank]
+
+
+=== `🤖 RHEL AI: Analyze Incident`
+
+*Purpose:*
+Uses Red Hat AI inference service to understand the failure message.
+
+*What it does:*
+
+- Sends logs
+- Returns a natural-language description of the error
+- Suggests what kind of automation could fix it
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/rhelai_inference_survey.yml[Github Link,window=_blank]
+
+=== `📣 Notify via Mattermost`
+
+*Purpose:*
+Sends a human-readable incident message to a Mattermost channel.
+
+*What it does:*
+
+- Formats the AI response and Apache status
+- Pushes it to a channel using Mattermost Webhook
+- Simulates integration with a real ITSM tool like ServiceNow
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/mattermost_first_message.yml[Github Link,window=_blank]
+
+=== `⚙️ Build Ansible Lightspeed Job Template`
+
+*Purpose:* Creates a new job template for the second workflow
+
+*What it does:*
+
+- Create a job template with a survey that includes:
+
+  * A user-defined prompt field
+  * A pre-filled prompt from Red Hat AI output
+
+*Why this is important:*
+
+This allows Ansible Lightspeed to generate a remediation playbook without writing code manually. The job template created here will be used in the second workflow.
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/aap_create_job_template.yml[Github Link,window=_blank]
+
+== Remediation Workflow
+
+image::remediation_workflow.png[remedation_workflow]
+
+=== `🧠 Lightspeed Remediation Playbook Generator`
+
+*Purpose:*
+Runs the job template created in the previous workflow `AI Insights and Lightspeed prompt generation` to generate a playbook from the AI prompt.
+
+*What it does:*
+
+- Uses Lightspeed to turn a prompt into a YAML playbook
+- Stores the result locally as `lightspeed-response.yml`
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/lightspeed_generate.yml[Github Link,window=_blank]
+
+=== `🧾 Commit Fix to Gitea`
+
+*Purpose:*
+Pushes the generated playbook to the Gitea Git repository.
+
+*What it does:*
+
+- Authenticates with Gitea
+- Commits `lightspeed-response.yml`
+- Makes the playbook available for automation use
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/scm_pr.yml[Github Link,window=_blank]
+
+=== `Sync Project to Lightspeed-Playbooks`
+
+*Purpose:*
+Syncs the git project from Gitea to Ansible Automation Platform
+
+[quote]
+💡 This is not a Job Template, but a built-in node that will sync Git projects within the workflow visualizer
+
+=== `⚙️ Build HTTPD Remediation Template`
+
+*Purpose:*
+Creates a new job template that uses the playbook pushed by Ansible Lightspeed to fix the Apache (httpd) service.
+
+*What it does:*
+
+- Creates a new Job Template called `Execute HTTPD Remediation`
+- Uses the dynamically generated `lightspeed-response.yml` playbook
+- Sets up the credentials, inventory and prompt for limit
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_remediation_job_template.yml[Github Link,window=_blank]
+
+== `Execute HTTPD Remediation`
+
+*Purpose*
+Fix httpd on the RHEL webserver
+
+*What is does*
+
+- Removes the bad syntax from the httpd configuration file
+- Restarts the httpd service
+
+*Ansible Playbook:*
+This Job Template is dynamically generated from Ansible Lightspeed and stored in your Gitea instance.  The Ansible Playbook should look similar to this:
+
+[source,yaml]
 ----
----
-- name: "Listen for OSPF neighbor events on a webhook"
+- name: Fix httpd
+  become: true
   hosts: all
+  tasks:
 
-  sources:
-    - name: "Webhook listener for OSPF events"
-      ansible.eda.webhook:
-        host: 0.0.0.0
-        port: 5000
+    - name: Remove line that contains InvalidDirectiveHere
+      ansible.builtin.lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: ^InvalidDirectiveHere
+        state: absent
 
-  rules:
-    - name: "Process OSPF neighbor event from webhook"
-      condition: event.payload.search_name == 'ospf-neighbor'
-      actions:
-        - debug:
-            msg: |
-              ✅ OSPF Webhook Received!
-              Search Name: {{ event.payload.search_name }}
-              Triggering workflow...
-
-        - run_workflow_template:
-            name: "Network-AIOps-Workflow"
-            organization: "Default"
-            job_args:
-              extra_vars:
-                webhook_payload: "{{ event.payload }}"
+    - name: Restart httpd
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
 ----
-This Event-Driven Ansible rulebook uses a webhook source plugin to listen for events on TCP port 5000. Its rule is configured to trigger an activation only when an incoming event payload contains the exact key-value pair of 'search_name': 'ospf-neighbor', which corresponds to the Splunk event configuration from the previous module. When this condition is met, the primary action is to launch the Network-AIOps-Workflow in the AAP controller. The entire webhook payload is passed to the workflow as an extra variable named webhook_payload, making the event data available for subsequent automation steps.
 
-== Summary
+=== `✅ Restore Apache`
 
-At this point the EDA rulebook activation history displays that it's listening for ospf webhooks from splunk and waiting for OSPF down messages in the next module.
+[quote]
+💡 This Job Template is optional
 
-image::rulebook_history.png[history, 100%]
+*Purpose*
+If you want to return Apache to a good state (without running AIOps workflows), you can run the `✅ Restore Apache` job template.
 
-== Complete
+*What it does*
 
-You have completed the EDA setup module. In the next section, we will build on that work by using ✨Lightspeed AI to develop a playbook for OSPF neighbor troubleshooting. This playbook will serve as the automated action for the Splunk and Event-Driven Ansible integration.
+- Should be mostly identical to what you see above for the `Execute HTTPD Remediation`
+
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_fix.yml[Github Link,window=_blank]
+
+== Call to action
+
+image::ansible-aiops.jpeg[picture of homer,300]
+
+Here are some recommended next steps in your Ansible AIOps journey:
+
+- https://youtube.com/ansibleautomation?sub_confirmation=1[Subscribe to our YouTube page,window=_blank]
+
+  * Check out the AI + Ansible YouTube https://youtube.com/playlist?list=PLdu06OJoEf2Y9-d7vPaKSh6ED_rO6AQFF&si=AFgrSb_FDHrU_TE6[playlist,window=_blank]
+
+- https://labs.demoredhat.com/[Bookmark our technical workshops page,window=_blank]
+- https://developers.redhat.com/products/ansible/overview[Check out developers.redhat.com,window=_blank] and get a home lab license.
+- https://www.redhat.com/en/services/training/do007-ansible-essentials-simplicity-automation-technical-overview[Sign up for free Red Hat training,window=_blank]
+
+Are you ready to implement now?
+- https://www.redhat.com/en/contact[Contact Red Hat,window=_blank]
+
+== Thank You!
+
+Thank you for completing the {lab_name}! We hope you've gained valuable insights into how AI and automation can work together to create intelligent, self-healing infrastructure.
+
+image::aap_logo.png[aap_logo,55%,55%]
