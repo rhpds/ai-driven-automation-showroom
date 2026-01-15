@@ -292,7 +292,7 @@ Use the following information to log in to Gitea and review the generated playbo
 | Value
 
 | Gitea URL
-| {gitea_url}[Gitea Web UI,window=_blank]
+| link:{gitea_url}[Gitea Web UI,window=_blank]
 
 | Username
 | `{lab_username}`
