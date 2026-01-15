@@ -120,8 +120,8 @@ This lab environment includes a variety of tools working together to demonstrate
 | AAP is preloaded in the lab interface.
 Click link if you want to open it in full tab:
 https://{nginx_web_url}[AAP Web UI,window=_blank]
-| Username: `{lab_username}`
-Password: `{ssh_password}`
+| Username: `{ansible_automation_platform_configuration_username}`
+Password: `{ansible_automation_platform_configuration_password}`
 
 | Gitea
 | https://{targethost}:{gitea_web_ui_port}[Gitea Web UI,window=_blank]
@@ -135,7 +135,7 @@ Password: `{ssh_password}`
 
 | Splunk 
 | link:http://{target_host}:8000[Splunk,window=_blank]
-| Username: `{lab_username}`
+| Username: admin
 Password: `{ssh_password}`
 
 |===
