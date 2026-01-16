@@ -236,6 +236,145 @@ If you want to return Apache to a good state (without running AIOps workflows), 
 *Ansible Playbook:*
 https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_fix.yml[Github Link,window=_blank]
 
+== Part 2: Network Automation Playbooks
+
+=== Network-AIOps-Workflow Overview
+
+The network automation portion of this lab follows the same AIOps principles as Part 1, but applies them to Cisco router OSPF troubleshooting scenarios.
+
+image::network-aiops-workflow.png[Network AI Workflow]
+
+=== `Network-Router-Setup`
+
+*Purpose:*
+Configures the initial OSPF setup on both Cisco routers and enables syslog forwarding to Splunk.
+
+*What it does:*
+
+- Establishes OSPF routing on Tunnel0 interfaces
+- Configures syslog forwarding to Splunk on TCP port 5514
+- Sets up the baseline OSPF neighbor adjacency
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_router_setup.yml[Github Link,window=_blank]
+
+== Network EDA Response
+
+image::eda.png[EDA, 150%]
+
+=== `OSPF Neighbor`
+
+*Purpose:*
+Listens for OSPF neighbor state changes from Splunk webhook alerts.
+
+*What it does:*
+
+- Monitors TCP port 5000 for webhook events
+- Triggers when search_name matches 'ospf-neighbor'
+- Launches the Network-AIOps-Workflow with webhook payload
+
+*Ansible Rulebook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/ospf.yml[Github Link,window=_blank]
+
+== Network-AIOps-Workflow
+
+This workflow is triggered by the OSPF Neighbor rulebook activation when an OSPF adjacency fails.
+
+=== `Create Playbook AI`
+
+*Purpose:*
+Uses Ansible Lightspeed to generate a network remediation playbook based on the OSPF failure scenario.
+
+*What it does:*
+
+- Receives the webhook payload containing OSPF event details
+- Constructs a detailed prompt for Ansible Lightspeed that includes:
+  * Scenario-specific troubleshooting logic (interface status, network type, hello timers)
+  * Cisco IOS command requirements
+  * Conditional checks for different failure modes
+- Generates a playbook with tasks to diagnose and fix the specific OSPF issue
+- Commits the generated playbook to Gitea as `lightspeed-response.yml`
+
+*Ansible Playbook:*
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml[Github Link,window=_blank]
+
+=== `Sync Project to Lightspeed-Playbooks`
+
+*Purpose:*
+Syncs the Gitea project containing the AI-generated network playbook to Ansible Automation Platform.
+
+[quote]
+This is a built-in workflow node that performs a Git sync operation.
+
+=== `Playbook-Check-Mode`
+
+*Purpose:*
+Runs the AI-generated playbook in check mode to preview changes before applying them to production routers.
+
+*What it does:*
+
+- Executes the `lightspeed-response.yml` playbook with `--check` flag
+- Shows what changes would be made to the router configuration
+- Allows human review of AI-generated changes before actual execution
+- Pauses the workflow for approval
+
+*Why this is important:*
+
+Network changes can have significant impact. Running in check mode first provides a safety gate to validate the AI-generated remediation before applying it.
+
+=== `Playbook-Run-Mode`
+
+*Purpose:*
+Applies the validated remediation to fix the OSPF neighbor adjacency issue.
+
+*What it does:*
+
+- Executes the same `lightspeed-response.yml` playbook without check mode
+- Makes actual configuration changes to cisco-rtr1
+- Restores OSPF neighbor adjacency based on the failure scenario:
+  * **Scenario 1**: Brings up the shutdown Tunnel0 interface
+  * **Scenario 2**: Corrects the OSPF network type to point-to-point
+  * **Scenario 3**: Fixes the OSPF hello timer interval
+
+*Example AI-Generated Playbook (Scenario 1 - Interface Shutdown):*
+
+[source,yaml]
+----
+- name: OSPF Neighbor Remediation
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check if Tunnel0 interface is administratively down
+      cisco.ios.ios_command:
+        commands:
+          - show ip interface brief | include Tunnel0
+      register: interface_status
+
+    - name: Bring up Tunnel0 interface if down
+      cisco.ios.ios_config:
+        lines:
+          - no shutdown
+        parents:
+          - interface Tunnel0
+      when: "'administratively down' in interface_status.stdout[0]"
+
+    - name: Verify OSPF neighbor adjacency
+      cisco.ios.ios_command:
+        commands:
+          - show ip ospf neighbor
+      register: ospf_neighbor
+----
+
+=== Network Remediation Summary
+
+The network automation workflows demonstrate:
+
+- **Observability**: Splunk captures syslog messages from Cisco routers
+- **Inference**: Ansible Lightspeed generates scenario-specific remediation playbooks
+- **Automation**: Event-Driven Ansible triggers workflows that validate (check mode) and execute (run mode) fixes
+
+This creates a complete closed-loop automation system for network troubleshooting that codifies expert knowledge into reusable, AI-generated playbooks.
+
 == Call to action
 
 image::ansible-aiops.jpeg[picture of homer,300]
