@@ -1,10 +1,10 @@
 = Section 5 - Network Workflow
-The workflow used in this Lab is called the **Network-AIOps-Workflow**. This workflow is triggered by 📡 Event-Driven Ansible (EDA) whenever an OSPF neighbor adjacency issue is detected by 🔍 Splunk. Specifically, this lab is set up to respond to failed OSPF neighbors. The workflow will run specific playbook tasks depending on the cause of the OSPF neighbor downtime.
+The workflow used in this Lab is called the **Network-AIOps-Workflow**. This workflow is triggered by Event-Driven Ansible (EDA) whenever an OSPF neighbor adjacency issue is detected by Splunk. Specifically, this lab is set up to respond to failed OSPF neighbors. The workflow will run specific playbook tasks depending on the cause of the OSPF neighbor downtime.
 
 image::network-aiops-workflow.png[Network AI Workflow]
 
 == Scenarios
-The essence of the following scenarios is to empower a network expert to translate their manual OSPF troubleshooting rationale into intelligent, automated playbooks. Using a development pipeline, the expert creates and refines prompts for 🧠 Ansible Lightspeed to generate the necessary automation code. To ensure safety and accuracy, a workflow allows the expert to first run each AI-generated playbook in check mode. This provides an opportunity to review and approve the proposed changes before they are applied to production. If a playbook doesn't work as intended, the expert can simply continue to refine their prompt in this iterative cycle until the desired outcome is achieved.
+The essence of the following scenarios is to empower a network expert to translate their manual OSPF troubleshooting rationale into intelligent, automated playbooks. Using a development pipeline, the expert creates and refines prompts for Ansible Lightspeed to generate the necessary automation code. To ensure safety and accuracy, a workflow allows the expert to first run each AI-generated playbook in check mode. This provides an opportunity to review and approve the proposed changes before they are applied to production. If a playbook doesn't work as intended, the expert can simply continue to refine their prompt in this iterative cycle until the desired outcome is achieved.
 
 * Scenario-1: OSPF neighbor down due to interface shut 
 * Scenario-2: OSPF neighbor down due to incorrect OSPF network type
@@ -21,7 +21,7 @@ user=lab-user
 password="{ssh_password}"
 
 [quote]
-⚠️ Note, The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
+Note: The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
 
 === AIOps.yml - Vars
 [source,yaml]
@@ -81,11 +81,11 @@ The preceding tasks convert the AI response into a YAML playbook named `lightspe
 [start=2]
 Step 2: Access the terminal to Shut the OSPF interface
 [quote]
-This portion of the lab will trigger the Closed loop operation. 🚀 
+This portion of the lab will trigger the Closed loop operation. 
 
 image::bastion.png[bastion, 150%]
 
-* SSH password=`{ssh_password}` 
+* SSH password=`ansible123!` 
 * SSH into cisco-rtr1 and add the following commands
  
 [source, BASH] 
@@ -96,7 +96,7 @@ int tu 0
 shut
 ----
 
-Step 3: Open the 🔁 AAP tab and verify a running job for the **Network-AIOps-Workflow**
+Step 3: Open the AAP tab and verify a running job for the **Network-AIOps-Workflow**
 
 image::bastion2.png[AAP,150%]
 
@@ -150,10 +150,10 @@ Step 7: Return to Splunk to verify the OSPF neighbor is still down
 | link:{splunk_url}[Splunk,window=_blank]
 
 | Username
-| admin
+| `{splunk_username}`
 
 | Password
-| `{ssh_password}`
+| `{splunk_password}`
 |===
 
 image::routing_dashboard1.png[Routing, 160%]
@@ -179,7 +179,7 @@ The following data output displays the CLI configuration that was applied to cis
 
 image::workflow-changed2.png[Change 260%]
 
-Step 10: Return to 🔍 Splunk to verify the OSPF neighbor is now up with a full adjacency.
+Step 10: Return to Splunk to verify the OSPF neighbor is now up with a full adjacency.
 
 === Accessing Splunk
 [cols="2,2", options="header"]
@@ -191,10 +191,10 @@ Step 10: Return to 🔍 Splunk to verify the OSPF neighbor is now up with a full
 | link:{splunk_url}[Splunk,window=_blank]
 
 | Username
-| admin
+| `{splunk_username}`
 
 | Password
-| `{ssh_password}`
+| `{splunk_password}`
 |===
 
 image::routing_dashboard2.png[Routing Dash, 160%]
@@ -210,7 +210,7 @@ user=lab-user
 password="{ssh_password}"
 
 [quote]
-⚠️ Note, The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
+Note: The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
 
 
 === AIOps.yml
@@ -241,7 +241,7 @@ Step 2: Change the OSPF Network Type
 
 image::bastion.png[bastion, 160%]
 
-* SSH password=`{ssh_password}` 
+* SSH password=`ansible123!` 
 * SSH into cisco-rtr1 and add the following commands
  
 [source, BASH] 
@@ -270,7 +270,7 @@ show ip ospf neighbor
 ----
 no output, when neighbor is down
 
-Step 4: Open the 🔁 AAP tab and verify a running job for the **Network-AIOps-Workflow**
+Step 4: Open the AAP tab and verify a running job for the **Network-AIOps-Workflow**
 
 image::bastion2.png[AAP, 150%]
 
@@ -282,7 +282,7 @@ image::workflow_job_2.png[Workflow 1, 160%]
 
 You can click on the icon and glean from the output the proposed playbook created by Ansible Lighspeed AI.
 [quote]
-Click here in 🔁 AAP to review the playbook
+Click here in AAP to review the playbook
 
 image::display_2.png[Display, 160%]
 
@@ -313,10 +313,10 @@ Step 6: Return to Splunk to verify the OSPF neighbor is still down
 | link:{splunk_url}[Splunk,window=_blank]
 
 | Username
-| admin
+| `{splunk_username}`
 
 | Password
-| `{ssh_password}`
+| `{splunk_password}`
 |===
 
 image::routing_dashboard1.png[Routing, 160%]
@@ -347,7 +347,7 @@ This time we will check the status from the router to ensure the OSPF network ty
 
 image::bastion.png[bastion, 160%]
 
-* SSH password=`{ssh_password}` 
+* SSH password=`ansible123!` 
 * SSH into cisco-rtr1 and add the following commands
  
 [source, BASH] 
@@ -380,7 +380,7 @@ user=lab-user
 password="{ssh_password}"
 
 [quote]
-⚠️ Note, The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
+Note: The following snippets explain how this playbook uses the uri module and prompt variable to interact with the Ansible Lightspeed AI to create an effective playbook for OSPF remediation. Not every task is explained in detail.
 
 === AIOps.yml
 [source,yaml]
@@ -411,7 +411,7 @@ Step 2: Change the OSPF Hello Timer
 
 image::bastion.png[bastion, 160%]
 
-* SSH password=`{ssh_password}` 
+* SSH password=`ansible123!` 
 * SSH into cisco-rtr1 and add the following commands
  
 [source, BASH] 
@@ -440,7 +440,7 @@ show ip ospf neighbor
 ----
 no output, when neighbor is down
 
-Step 4: Open the 🔁 AAP tab and verify a running job for the **Network-AIOps-Workflow**
+Step 4: Open the AAP tab and verify a running job for the **Network-AIOps-Workflow**
 
 image::bastion2.png[AAP, 150%]
 
@@ -453,7 +453,7 @@ image::workflow_job_2.png[Workflow 1, 160%]
 You can click on the icon and glean from the output the proposed playbook created by Ansible Lighspeed AI.
 
 [quote]
-Click here in 🔁 AAP to review the playbook
+Click here in AAP to review the playbook
 
 image::display_2.png[Display, 160%]
 
@@ -474,7 +474,7 @@ The following data output displays the when the playbook is run again in `run mo
 image::workflow-changed6.png[Change 2,160%]
 
 [quote]
-⚠️ We know the playbook was run in `check-mode` from the previous scenarios, so this time we skip the Splunk dashboard step.
+Note: We know the playbook was run in `check-mode` from the previous scenarios, so this time we skip the Splunk dashboard step.
 
 Step 7: Human Review
 The **Network-AIOps-Workflow** Should be in a paused state until we approve, deny or cancel. If your workflow has succeeded thus far, it's okay to approve the workflow, at this time.
@@ -500,7 +500,7 @@ This time we will check the status from the router to ensure the OSPF hello inte
 
 image::bastion.png[bastion, 160%]
 
-* SSH password=`{ssh_password}` 
+* SSH password=`ansible123!` 
 * SSH into cisco-rtr1 and add the following commands
  
 [source, BASH] 
@@ -526,11 +526,11 @@ Output:
 
 == Summary
 
-This Lab successfully implemented a closed-loop, AI-driven network automation workflow. We began by integrating Cisco OSPF monitoring with 🔍 Splunk alerting. Subsequently, an 📡 Event-Driven Ansible (EDA) rulebook was configured to act on these alerts, establishing an operational feedback loop. This final module leveraged that loop to trigger an AI workflow, which dynamically generates a remediation playbook. This powerful new capability allowed us to successfully stage, test, and automate troubleshooting for three distinct OSPF failure scenarios. 
+This Lab successfully implemented a closed-loop, AI-driven network automation workflow. We began by integrating Cisco OSPF monitoring with Splunk alerting. Subsequently, an Event-Driven Ansible (EDA) rulebook was configured to act on these alerts, establishing an operational feedback loop. This final module leveraged that loop to trigger an AI workflow, which dynamically generates a remediation playbook. This powerful new capability allowed us to successfully stage, test, and automate troubleshooting for three distinct OSPF failure scenarios. 
 
 By leveraging Ansible Lightspeed, our network expert could focus on codifying their troubleshooting knowledge in plain language, rather than getting bogged down in low-level syntax like playbook conditionals, operators, or regular expressions. This same process could easily be leveraged to iterate additional trouble shooting scenarios into the same playbook or refactored as roles.
 
-== 🎉 Congratulations! You've Completed Part 2!
+== Congratulations! You've Completed Part 2!
 
 You have successfully completed the Network Automation portion of this lab! You've now seen how AI-driven automation can be applied to both server infrastructure (Part 1) and network infrastructure (Part 2).
 

@@ -9,10 +9,10 @@ image::aiops.png[aiops,55%,55%]
 
 In this lab, you will build an intelligent, self-healing automation workflow using:
 
-- 🧠 Red Hat AI for understanding service issues
-- ✨ Ansible Lightspeed to generate remediation playbooks
-- 🔁 Ansible Automation Platform (AAP) workflows for orchestration
-- 📡 Event-Driven Ansible (EDA) to listen to real-time service events
+- Red Hat AI for understanding service issues
+- Ansible Lightspeed to generate remediation playbooks
+- Ansible Automation Platform (AAP) workflows for orchestration
+- Event-Driven Ansible (EDA) to listen to real-time service events
 
 The goal is to showcase how **automation + AI** can be used to detect, analyze, and remediate application failures **without writing any playbooks manually**.  For a quick overview consider this ~2 minute https://youtu.be/a3fCHd2vTXU?si=L_5jGYZFtb3SzCJq[YouTube video,window=_blank].  Quick plug! https://youtube.com/ansibleautomation?sub_confirmation=1[Please consider subscribing to the Ansible Team!,window=_blank]
 
@@ -66,7 +66,7 @@ For this workshop are there four (4) Parts:
 
 4. *Execute HTTPD Remedation* - This is the final Job Template that will actually fix the application outage on the RHEL webserver.
 
-5. *AI Driven Ansible for Network Automation* - This lab synthesizes the 🧠 AI skills from the preceding sections of the {lab_name} into a practical network automation scenario.
+5. *AI Driven Ansible for Network Automation* - This lab synthesizes the AI skills from the preceding sections of the {lab_name} into a practical network automation scenario.
 
 [quote]
 💡 Could this all be one workflow? Yes.  This is purposely broken up at natural breakpoints where a human user can review what the AIOps workflow is doing and course correct if required.  This also allows organization to incrementally adopt AIOps workflows.  Organization can benefit greatly from any of these individual parts!
@@ -92,11 +92,9 @@ Let’s take a closer look at each step in the workflow, broken down clearly for
 
 link:_images/workflow_diagram.png[image:workflow_diagram.png[workflow_diagram], window=_blank]
 
-We will break this up into sections though!  As you go through each module we will break down each individual workflow and go step-by-step! Red Hat and Ansible Automation Platform will make AIOps simple for organizations to adopt and scale 🎉
+We will break this up into sections though!  As you go through each module we will break down each individual workflow and go step-by-step! Red Hat and Ansible Automation Platform will make AIOps simple for organizations to adopt and scale.
 
 == Access & Credentials
-
-You're already logged into the environment as `{lab_username}`. No manual setup is needed.
 
 All lab content is preconfigured and ready to run.
 
@@ -142,7 +140,7 @@ Password: `{splunk_password}`
 
 '''
 
-== 🎯 Ready to Begin Part 1?
+== Ready to Begin Part 1?
 
 You now have everything you need to start the core AIOps lab! In the following modules, you'll break Apache, watch EDA respond, see Red Hat AI analyze the incident, and let Ansible Lightspeed generate a fix—all automatically.
 
@@ -155,63 +153,72 @@ You now have everything you need to start the core AIOps lab! In the following m
 **This lab has two independent parts!** You can complete Part 1, Part 2, or both—in any order. If you've already completed Part 1 and want to explore a more advanced scenario, feel free to skip ahead to Part 2.
 ====
 
-== Part 2: AI Driven Ansible for Network Automation
+== Part 2: AIOps with Network Automation
 
 image::splunk-logo.png[splunk,150]
 
 [IMPORTANT]
 ====
-**Highly Recommended!** While Part 2 can be completed independently, we strongly encourage you to complete this section. Part 1 provides a **basic introduction** to AIOps concepts using a simple Apache service remediation. Part 2 takes these concepts further with a **more complex, real-world networking scenario** that demonstrates the true power of AI-driven automation at scale.
+**Highly Recommended!** While Part 2 can be completed independently, we strongly encourage completing this section. Part 1 provides a **basic introduction** to AIOps concepts using Apache service remediation. Part 2 applies the same AIOps principles to a **more complex, real-world networking scenario**—demonstrating how AI-driven automation scales to handle sophisticated infrastructure challenges.
 ====
 
-Part 2 synthesizes the 🧠 AI skills from the preceding modules into a practical network automation scenario. You will leverage AI to generate Ansible playbooks designed to troubleshoot **OSPF routing issues** on Cisco routers—a more sophisticated use case that showcases how AIOps can handle complex infrastructure challenges.
+Part 2 applies the same three AIOps pillars you learned in Part 1—**Observability**, **Inference**, and **Automation**—to network infrastructure:
 
-=== Why Network Automation?
+* **Observability**: Splunk collects and analyzes syslog data from Cisco routers, detecting OSPF neighbor failures in real-time
+* **Inference**: Ansible Lightspeed with IBM watsonx Code Assistant generates network remediation playbooks based on natural language prompts describing OSPF troubleshooting scenarios
+* **Automation**: Event-Driven Ansible receives Splunk alerts and triggers AAP workflows that validate (check mode) and execute the AI-generated fixes automatically
 
-This approach allows network experts to:
+=== Network Lab Components
 
-* **Codify deep troubleshooting knowledge** into automated, repeatable workflows
-* **Lower the barrier to entry** for new engineers learning network operations
-* **Validate and test automation playbooks** rapidly before production deployment
+The network environment includes:
 
-To simulate a realistic operational environment, this lab integrates **Splunk** and **Event-Driven Ansible**, creating a complete feedback loop to observe network events, decide on a course of action, and automatically act on OSPF-related issues.
-
-=== Network Lab Topology
-
-The network lab environment is composed of the following components:
-
-* Splunk Enterprise
-* Ansible Automation Controller
-* Ansible Lightspeed AI API
-* Ansible Event Driven Ansible 
-* Cisco Cat8000v routers
+* **Splunk Enterprise** - Network observability and alerting platform
+* **Ansible Automation Platform** - Workflow orchestration and playbook execution
+* **Ansible Lightspeed** - AI-powered playbook generation for network scenarios
+* **Event-Driven Ansible** - Webhook listener that bridges Splunk alerts to AAP workflows
+* **Cisco Cat8000v Routers** - OSPF-configured network devices (running in OpenShift Virtualization)
 
 image::lab_topo.png[Lab Topology,150%,150%]
 
-=== Network Lab Overview
+=== How It Works: The Closed-Loop Network AIOps Workflow
 
-This lab demonstrates a closed-loop, AI-powered remediation workflow. It begins when a misconfiguration on the Cisco router causes an OSPF neighbor relationship to drop. The router sends a syslog message to 🔍 Splunk, which detects the "OSPF down" event and triggers an alert. This alert sends a webhook to the 📡 Event-Driven Ansible (EDA) controller, which in turn launches a workflow in 🔁 Ansible Automation Platform (AAP).
+This lab demonstrates a complete observe → evaluate → respond loop for network automation:
 
-The workflow dynamically generates a remediation playbook using an AI prompt. For safety, AAP first validates this playbook in "check mode." Once verified, it executes the playbook to apply the correct OSPF configuration, automatically restoring the router and resolving the issue.
+1. **Trigger**: A misconfiguration on cisco-rtr1 causes the OSPF neighbor relationship to drop (Tunnel0 interface)
+2. **Observe**: The router sends a syslog message to Splunk, which detects the "OSPF down" event and fires an alert
+3. **Evaluate**: The Splunk alert triggers an EDA webhook, launching the Network-AIOps-Workflow in AAP
+4. **Infer**: The workflow prompts Ansible Lightspeed to generate a remediation playbook specific to the OSPF failure scenario
+5. **Validate**: AAP runs the AI-generated playbook in check mode to preview changes before applying them
+6. **Respond**: After human approval, the playbook executes in run mode, automatically restoring the OSPF neighbor adjacency
 
 [quote]
-⚠️ Note, this lab includes a workflow, associated project, inventories, gitea repository, job-templates that were preloaded. However, you will be required to provide configurations to the Splunk, EDA, and the Cisco router to complete the subsequent exercises.
+**Same AIOps Pattern, Different Domain**: Notice how Part 2 follows the exact same workflow structure as Part 1? The power of AIOps is that these patterns apply universally—whether you're fixing Apache services or troubleshooting complex network protocols. You'll explore three OSPF failure scenarios, each demonstrating how to codify expert network knowledge into automated, AI-generated remediation playbooks.
+
+=== What You'll Learn
+
+* How to integrate Splunk with Event-Driven Ansible for network event detection
+* Techniques for prompting Ansible Lightspeed to generate effective network automation playbooks
+* Best practices for validating AI-generated network changes before production deployment
+* Real-world OSPF troubleshooting scenarios: interface shutdown, network type mismatch, and hello timer configuration
+
+[quote]
+**Pre-configured Environment**: Most network components (workflows, projects, inventories, job templates, Gitea repository) are pre-loaded. You'll configure Splunk data inputs, verify EDA rulebook activations, and execute the OSPF troubleshooting scenarios to see the complete closed-loop automation in action.
 
 == What's Next?
 
-Lets get started 🚀
+Lets get started!
 
 [cols="1,3", frame=none, grid=none]
 |===
 |image::aap_logo.png[aap_logo,120]
 a|
-**Part 1: AIOps with Apache Remediation** (Modules 1-3)
+**Part 1: AIOps with Apache Remediation** (Modules 1-2)
 
-A **basic introduction** to AIOps—learn the fundamentals by building a self-healing workflow for Apache service failures.
+A **basic introduction** to AIOps—learn the fundamentals by building a self-healing workflow for Apache service failures using Red Hat AI and Ansible Lightspeed.
 
-**Part 2: Network Automation** (Modules 4-5) ⭐ _Highly Recommended_
+**Part 2: AIOps with Network Automation** (Modules 3-5) _Highly Recommended_
 
-A **more complex scenario** applying AIOps to OSPF troubleshooting on Cisco routers. Demonstrates real-world network automation at scale.
+Apply the same AIOps patterns to **network infrastructure**. Troubleshoot OSPF routing issues on Cisco routers using Splunk, Event-Driven Ansible, and Lightspeed-generated playbooks.
 |===
 
 [TIP]
