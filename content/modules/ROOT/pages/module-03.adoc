@@ -30,16 +30,19 @@ In short, Event-Driven Ansible connects your tools, codifies your operational kn
 Earlier we configured a Splunk alert, now we need to configure Event Driven Ansible to receive the splunk alert as a webhook.
 
 === Accessing EDA
+
+EDA is accessed from AAP. Login to AAP and then go to Automation Decisions from the left menu.
+
 [cols="2,2", options="header"]
 |===
 | Component
 | Value
 
 | Username
-| lab-user
+| `{controller_username}`
 
 | Password
-| `{ssh_password}`
+| `{controller_password}`
 |===
 
 Step 1: Open EDA from the AAP tab
@@ -48,15 +51,16 @@ image::bastion2.png[AAP]
 
 Step 2: Navigate to "Automation Decisions" and select "Rulebook Activations"
 
-image::automation_decisions.png[automation decisions, 100%]
-
 [quote]
+____
 The EDA controller has been pre-configured with the following:
-- **Project**: `ai-eda` - syncs from `https://github.com/ansible-tmm/aiops-summitlab.git`
-- **Rulebook Activation**: `OSPF Neighbor` - runs the `ospf.yml` rulebook
-- **Webhook Listener**: Listening on port 5000 for Splunk alerts
+
+* **Project**: `ai-eda` - syncs from `https://github.com/ansible-tmm/aiops-summitlab.git`
+* **Rulebook Activation**: `OSPF Neighbor` - runs the `ospf.yml` rulebook
+* **Webhook Listener**: Listening on port 5000 for Splunk alerts
 
 These components were automatically created during lab provisioning. You just need to verify they're running correctly.
+____
 
 Step 3: Verify the Rulebook Activation is Running
 
