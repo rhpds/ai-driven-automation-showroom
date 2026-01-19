@@ -4,7 +4,7 @@
 
 For this section, we will build another workflow called the **Remediation Workflow**. The goal for this workflow is to take the information we learned from Section 1 with Red Hat AI and now prompt Ansible Lightspeed to automatically create an Ansible Playbook to fix the issue. By combining these two workflows, we can create an AIOps workflow capable of self-healing infrastructure.
 
-image::remediation_workflow.png[remediation_workflow]
+image::remediation_workflow.png[remediation_workflow, link="remediation_workflow.png", window="_blank"]
 
 By separating these two parts into distinct workflows, we allow for manual review of the response from Red Hat AI and can take corrective action if necessary. This creates a natural stopping point in our automation workflow where we can ensure the automation is performing as expected.
 
@@ -59,12 +59,12 @@ As you can see in the above output, the httpd.service has failed.
 1. Log in to the web UI for Ansible Automation Platform if you are not already logged in.
 2. In the left navigation menu, click on *Automation Execution* → *Templates*.
 
-image::automation_execution_templates.png[automation_execution_templates]
+image::automation_execution_templates.png[automation_execution_templates, link="automation_execution_templates.png", window="_blank"]
 
 [start=3]
 3. Navigate to the Templates page and select the *Remediation Workflow* Workflow job template
 
-image::remediation_workflow_list.png[create_workflow]
+image::remediation_workflow_list.png[create_workflow, link="remediation_workflow_list.png", window="_blank"]
 
 [quote]
 💡 The last workflow (specifically the job template *Build Ansible Lightspeed Job Template*) used the *ansible.controller.workflow_job_template* module to automatically create this blank workflow. We could have Ansible automatically create the entire workflow but we want to illustrate each part and what it is doing.  The most important part is that Ansible automatically created a survey with output from Red Hat AI.  You will see this called out below when we run the workflow.  Ask your instructor if you need clarification.
@@ -72,12 +72,12 @@ image::remediation_workflow_list.png[create_workflow]
 [start=4]
 4. Click on the blue *View workflow visualizer* button
 
-image::view_workflow_visualizer_button.png[visualizer_button,300]
+image::view_workflow_visualizer_button.png[visualizer_button,300, link="view_workflow_visualizer_button.png", window="_blank"]
 
 [start=5]
 5. Verify you have a window that looks like this:
 
-image::currently_no_nodes_workflow.png[currently_no_nodes_workflow,400]
+image::currently_no_nodes_workflow.png[currently_no_nodes_workflow,400, link="currently_no_nodes_workflow.png", window="_blank"]
 
 [start=6]
 6. Click on the blue *Add step*
@@ -93,28 +93,28 @@ image::currently_no_nodes_workflow.png[currently_no_nodes_workflow,400]
 | Node alias | (You can leave this blank)
 |===
 
-image::add_step_lightspeed_remediation.png[add_step_lightspeed_remediation,500]
+image::add_step_lightspeed_remediation.png[add_step_lightspeed_remediation,500, link="add_step_lightspeed_remediation.png", window="_blank"]
 
 [start=8]
 8. Click on the blue *Next*.
 
-image::blue_next_button.png[blue_next_button,150]
+image::blue_next_button.png[blue_next_button,150, link="blue_next_button.png", window="_blank"]
 
 [start=9]
 9. Review and click the blue *Finish* button.
 
-image::blue_finish_button.png[blue_finish_button,150]
+image::blue_finish_button.png[blue_finish_button,150, link="blue_finish_button.png", window="_blank"]
 
 Your workflow will now look like this:
 
-image::remediation_workflow_part_one.png[remediation_workflow_part_one,500]
+image::remediation_workflow_part_one.png[remediation_workflow_part_one,500, link="remediation_workflow_part_one.png", window="_blank"]
 
 [start=10]
 10. Click on the three dots (kebab menu) next to the *🧠 Lightspeed Remediation Playbook Generator* node
 
 11. Click on *⊕ Add step and link*
 
-image::workflow_add_step_and_link.png[workflow_add_step_and_link,200]
+image::workflow_add_step_and_link.png[workflow_add_step_and_link,200, link="workflow_add_step_and_link.png", window="_blank"]
 
 [start=12]
 12. Fill out the following values
@@ -129,28 +129,28 @@ image::workflow_add_step_and_link.png[workflow_add_step_and_link,200]
 | Node alias | (You can leave this blank)
 |===
 
-image::remediation_workflow_part_two.png[remediation_workflow_part_two,500]
+image::remediation_workflow_part_two.png[remediation_workflow_part_two,500, link="remediation_workflow_part_two.png", window="_blank"]
 
 [start=13]
 13. Click on the blue *Next*.
 
-image::blue_next_button.png[blue_next_button,150]
+image::blue_next_button.png[blue_next_button,150, link="blue_next_button.png", window="_blank"]
 
 [start=14]
 14. Review and click the blue *Finish* button
 
-image::blue_finish_button.png[blue_finish_button,150]
+image::blue_finish_button.png[blue_finish_button,150, link="blue_finish_button.png", window="_blank"]
 
 Your workflow will now look like this:
 
-image::remediation_workflow_part_two_final.png[remediation_workflow_part_two_final,500]
+image::remediation_workflow_part_two_final.png[remediation_workflow_part_two_final,500, link="remediation_workflow_part_two_final.png", window="_blank"]
 
 [start=15]
 15. Click on the three dots (kebab menu) next to the *🧾 Commit Fix to Gitea* node
 
 16 Click on *⊕ Add step and link*
 
-image::workflow_add_step_and_link.png[workflow_add_step_and_link,200]
+image::workflow_add_step_and_link.png[workflow_add_step_and_link,200, link="workflow_add_step_and_link.png", window="_blank"]
 
 [start=17]
 17. Fill out the following values
@@ -165,7 +165,7 @@ image::workflow_add_step_and_link.png[workflow_add_step_and_link,200]
 | Node alias | (You can leave this blank)
 |===
 
-image::remediation_workflow_part_three.png[remediation_workflow_part_three,500]
+image::remediation_workflow_part_three.png[remediation_workflow_part_three,500, link="remediation_workflow_part_three.png", window="_blank"]
 
 [quote]
 ⚠️ Notice this node type is different.  This is a *built-in* node type that will force a **Project Sync** to the repository that will hold our auto-generated Ansible Playbooks.  This is effectively a *git pull*  The previous node: *🧾 Commit Fix to Gitea*  synced the Ansible Playbook from Ansible Lightspeed to Gitea, now we are retrieving that playbook from Gitea to use in Ansible Automation Platform.
@@ -173,23 +173,23 @@ image::remediation_workflow_part_three.png[remediation_workflow_part_three,500]
 [start=18]
 18. Click on the blue *Next*.
 
-image::blue_next_button.png[blue_next_button,150]
+image::blue_next_button.png[blue_next_button,150, link="blue_next_button.png", window="_blank"]
 
 [start=19]
 19. Review and click the blue *Finish* button.
 
-image::blue_finish_button.png[blue_finish_button,150]
+image::blue_finish_button.png[blue_finish_button,150, link="blue_finish_button.png", window="_blank"]
 
 Your workflow will now look like this:
 
-image::remediation_workflow_part_three_final.png[remediation_workflow_part_three_final,500]
+image::remediation_workflow_part_three_final.png[remediation_workflow_part_three_final,500, link="remediation_workflow_part_three_final.png", window="_blank"]
 
 [start=20]
 20. Click on the three dots (kebab menu) next to the *🧠 Lightspeed-Playbooks* node
 
 21. Click on *⊕ Add step and link*
 
-image::workflow_add_step_and_link.png[workflow_add_step_and_link,200]
+image::workflow_add_step_and_link.png[workflow_add_step_and_link,200, link="workflow_add_step_and_link.png", window="_blank"]
 
 [start=22]
 22. Fill out the following values
@@ -204,35 +204,35 @@ image::workflow_add_step_and_link.png[workflow_add_step_and_link,200]
 | Node alias | (You can leave this blank)
 |===
 
-image::remediation_workflow_part_four.png[remediation_workflow_part_four,500]
+image::remediation_workflow_part_four.png[remediation_workflow_part_four,500, link="remediation_workflow_part_four.png", window="_blank"]
 
 [start=23]
 23. Click on the blue *Next*.
 
-image::blue_next_button.png[blue_next_button,150]
+image::blue_next_button.png[blue_next_button,150, link="blue_next_button.png", window="_blank"]
 
 [start=24]
 24. Review and click the blue *Finish* button
 
-image::blue_finish_button.png[blue_finish_button,150]
+image::blue_finish_button.png[blue_finish_button,150, link="blue_finish_button.png", window="_blank"]
 
 Your workflow will now look like this:
 
-image::remediation_workflow_part_four_final.png[remediation_workflow_part_four_final,500]
+image::remediation_workflow_part_four_final.png[remediation_workflow_part_four_final,500, link="remediation_workflow_part_four_final.png", window="_blank"]
 
 You are now done creating the workflow!
 
 [start=25]
 25. Click on the blue **Save** button at the top.
 
-image::save_button.png[save_button,150]
+image::save_button.png[save_button,150, link="save_button.png", window="_blank"]
 
 [start=26]
 26. Exit out of the Workflow Visualizer by clicking the *x* at the top right
 
 27. Click the *🚀 Launch template* button to execute the *Remediation Workflow*
 
-image::launch_template_button.png[launch_template_button,150]
+image::launch_template_button.png[launch_template_button,150, link="launch_template_button.png", window="_blank"]
 
 [quote]
 💡 This is the really cool part!  A survey prompt will appear with two text boxes side-by-side:
@@ -243,7 +243,7 @@ image::launch_template_button.png[launch_template_button,150]
 
 You have the flexibility to use either prompt. If you're satisfied with the AI-generated prompt on the right, you can copy and paste it into the left box to test the AI's solution. **This is the key benefit of separating AIOps into two workflows** - it gives you (the administrator) the ability to review and validate AI-generated responses for accuracy before proceeding with automated remediation!
 
-image::workflow_prompt.png[workflow_prompt]
+image::workflow_prompt.png[workflow_prompt, link="workflow_prompt.png", window="_blank"]
 
 [start=28]
 28. Review the AI-generated prompt (right side) and update the required field (left side with the red asterisk *) as needed. Feel free to copy and paste from the right side to the left side.
@@ -254,19 +254,19 @@ image::workflow_prompt.png[workflow_prompt]
 [start=29]
 29. Click on the blue *Next*.
 
-image::blue_next_button.png[blue_next_button,150]
+image::blue_next_button.png[blue_next_button,150, link="blue_next_button.png", window="_blank"]
 
 [start=29]
 29. Review and click the blue *Finish* button.
 
-image::blue_finish_button.png[blue_finish_button,150]
+image::blue_finish_button.png[blue_finish_button,150, link="blue_finish_button.png", window="_blank"]
 
 [start=30]
 30. Wait for the workflow to complete
 
 When the workflow completes you will see a green ✅ Success
 
-image::remediation_workflow_success.png[remediation_workflow_success,150]
+image::remediation_workflow_success.png[remediation_workflow_success,150, link="remediation_workflow_success.png", window="_blank"]
 
 [quote]
 🎉 You have used Ansible Automation Platform in an AIOps workflow to automatically create an Ansible Job Template to fix your issue. This has created an Ansible Job Template called *🔧✅ Execute HTTPD Remediation*. You could also add this to the workflow, but it might be another natural breakpoint where you schedule this job template during an approved change window. For example, some organizations might only want to apply changes to production servers on Sundays at 3AM.
@@ -322,14 +322,14 @@ Use the following information to log in to Gitea and review the generated playbo
 
 1. In the left navigation menu, click on *Automation Execution* → *Templates*.
 
-image::automation_execution_templates.png[automation_execution_templates]
+image::automation_execution_templates.png[automation_execution_templates, link="automation_execution_templates.png", window="_blank"]
 
 [start=2]
 2. Scroll down to the *🔧✅ Execute HTTPD Remediation* job template and click the 🚀 to launch the job.
 
 3. Type in `node1` for the Limit
 
-image::limit_node1.png[limit_node1,300]
+image::limit_node1.png[limit_node1,300, link="limit_node1.png", window="_blank"]
 
 [quote]
 💡 A limit in Ansible Automation Platform is equivalent to `--limit` with the `ansible-playbook` command.  The limit specifies the host or hosts you want to run the Ansible Job on versus the entire inventory, effectively *limiting* it to only running on those host(s).
@@ -337,12 +337,12 @@ image::limit_node1.png[limit_node1,300]
 [start=4]
 4. Click on the blue *Next*.
 
-image::blue_next_button.png[blue_next_button,150]
+image::blue_next_button.png[blue_next_button,150, link="blue_next_button.png", window="_blank"]
 
 [start=5]
 5 Review and click the blue *Finish* button.
 
-image::blue_finish_button.png[blue_finish_button,150]
+image::blue_finish_button.png[blue_finish_button,150, link="blue_finish_button.png", window="_blank"]
 == Check Success
 
 1. Connect to your bastion host either via SSH or Visual Studio Code.  The connection information is provided by your instructor.
@@ -394,7 +394,7 @@ You have
 * Completed an AIOps workflow, by utilizing two different AI endpoints
 * Used the *limit* feature in a Job Template
 
-image::aiops-cool.gif[aiops-cool]
+image::aiops-cool.gif[aiops-cool, link="aiops-cool.gif", window="_blank"]
 
 '''
 
@@ -413,7 +413,7 @@ You have successfully completed the **basic introduction** to AIOps! You've expe
 
 == ⭐ Ready for More? Part 2 Awaits!
 
-image::splunk-logo.png[splunk,150]
+image::splunk-logo.png[splunk,150, link="splunk-logo.png", window="_blank"]
 
 [IMPORTANT]
 ====

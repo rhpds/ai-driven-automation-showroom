@@ -17,7 +17,7 @@ Observability tools, such as Splunk, Prometheus, Grafana, Dynatrace, and others,
 === Red Hat + Splunk
 The integration between Red Hat Ansible Automation Platform and Splunk creates a powerful, two-way bridge that transforms IT operations by connecting Splunk's deep data analysis and observability with Ansible's robust automation capabilities. This is achieved through an add-on that allows for a seamless flow of information. 
 
-image::redhat_splunk.png[Red Hat + Splunk, 100%]
+image::redhat_splunk.png[Red Hat + Splunk, 100%, link="redhat_splunk.png", window="_blank"]
 
 === Accessing Splunk
 [cols="2,2", options="header"]
@@ -43,7 +43,7 @@ In Splunk, "data inputs" are the various methods and sources from which the plat
   	
 Once logged into Splunk, click on the settings at the top of the screen and data inputs
 
-image::data_inputs.png[Data Inputs, 250%]
+image::data_inputs.png[Data Inputs, 250%, link="data_inputs.png", window="_blank"]
 
 ==== TCP Port 5514
 Splunk has been pre-loaded to open TCP port 5514. We simply need to add a data input to receive Cisco IOS syslogs using this port.
@@ -51,15 +51,15 @@ Splunk has been pre-loaded to open TCP port 5514. We simply need to add a data i
 Step 1:  Add a new TCP input
 
 
-image::tcp_1.png[Add TCP, 200%]
+image::tcp_1.png[Add TCP, 200%, link="tcp_1.png", window="_blank"]
 
 Step 2: Click on "New Local TCP"
 
-image::tcp2.png[Add TCP, 200%]
+image::tcp2.png[Add TCP, 200%, link="tcp2.png", window="_blank"]
 
 Step 3: Select TCP, port 5514, and click "next" 
 
-image::tcp_3.png[Add TCP, 200%]
+image::tcp_3.png[Add TCP, 200%, link="tcp_3.png", window="_blank"]
 
 Step 4: Configure the following input settings
 
@@ -79,11 +79,11 @@ Step 4: Configure the following input settings
 | IP
 |===
 
-image::tcp_4.png[Add TCP, 100%]
+image::tcp_4.png[Add TCP, 100%, link="tcp_4.png", window="_blank"]
 
 Step 5: Validate your configuration and submit
 
-image::tcp_5.png[Add TCP, 150%]
+image::tcp_5.png[Add TCP, 150%, link="tcp_5.png", window="_blank"]
 
 === Cisco Routers 
 
@@ -96,20 +96,20 @@ In addition to establishing OSPF routing, this playbook now configures the targe
 
 Access AAP and run the job-template
 
-image::router_setup.png[Router Setup, 150%]
+image::router_setup.png[Router Setup, 150%, link="router_setup.png", window="_blank"]
 
 === Verify Syslogs
 Step 1: After the Cisco router setup completes, return to splunk and click on the Cisco Networks App
 
-image::cisco_networks.png[Cisco networks, 150%]
+image::cisco_networks.png[Cisco networks, 150%, link="cisco_networks.png", window="_blank"]
 
 Step 2: Enter the routing dashboard
 
-image::routing_dashboard1.png[Routing Dash, 150%]
+image::routing_dashboard1.png[Routing Dash, 150%, link="routing_dashboard1.png", window="_blank"]
 
 Step 3: Verify that there is an entry of an OSPF event with a full adjacency 
 
-image::routing_dashboard2.png[Routing Dash, 250%]
+image::routing_dashboard2.png[Routing Dash, 250%, link="routing_dashboard2.png", window="_blank"]
 
 === Configure an Alert
 In splunk we can create an alert from a search. A Splunk search is when you manually run a query to find and analyze information in your data.
@@ -118,7 +118,7 @@ An alert is simply that search saved to run automatically. When the search resul
 
 Step 1: Access the Splunk search field
 
-image::search1.png[Search, 150%]
+image::search1.png[Search, 150%, link="search1.png", window="_blank"]
 
 [quote]
 **Note:** You will return to this browser tab after completing the next step
@@ -126,7 +126,7 @@ image::search1.png[Search, 150%]
 Step 2: Create an OPSF neighbor down event
 Access cisco-rtr1 from the bastion console to shut down interface tunnel0
 
-image::bastion.png[bastion, 150%]
+image::bastion.png[bastion, 150%, link="bastion.png", window="_blank"]
 
 * SSH password=`ansible123!`
 * SSH into cisco-rtr1 and add the following commands
@@ -148,13 +148,13 @@ paste in the following line and search:
  %OSPF-5-ADJCHG: Process 1, Nbr 192.168.2.2 on Tunnel0 from FULL to DOWN
 ----
 
-image::search2.png[Search, 150%]
-image::search-3.png[Search, 150%]
+image::search2.png[Search, 150%, link="search2.png", window="_blank"]
+image::search-3.png[Search, 150%, link="search-3.png", window="_blank"]
 
 
 Step 4: Save as an Alert (ospf-neighbor)
 
-image::save_as_alert.png[Save As, 150%]
+image::save_as_alert.png[Save As, 150%, link="save_as_alert.png", window="_blank"]
 
 Complete the pop-up screen for save as an alert
 
@@ -188,7 +188,7 @@ Configure the alert with the following settings:
 [quote]
 💡 **Important**: When configuring the Webhook action, use the `{eda_webhook_url}` variable shown above. The screenshot may show `controller.example.com` but you should use the EDA webhook URL specific to your lab environment.
 
-image::save_as_alert2.png[Save As, 100%]
+image::save_as_alert2.png[Save As, 100%, link="save_as_alert2.png", window="_blank"]
 
 === Event Driven Ansible Addon (Reference Only)
 For this lab environment we are using a simple webhook. However, for a more secure webhook, Splunk offers the Ansible EDA addon to integrate with EDA event streams. EDA event streams allow for token based authentication as well as storing a history of events. 
@@ -200,7 +200,7 @@ Step 1: Access the Ansible addon
 
 From the Splunk Apps menu, navigate to the Event-Driven Ansible app.
 
-image::eda_addon.png[Add on, 100%]
+image::eda_addon.png[Add on, 100%, link="eda_addon.png", window="_blank"]
 
 Step 2: Create a webhook to EDA event-stream configuration
 
@@ -211,13 +211,13 @@ Click on **Configuration** and then **Event Streams**. Create a new event stream
 * **Token**: Authentication token from EDA
 * **Verify SSL**: Depends on your environment (typically disabled for lab environments)
 
-image::example_eventstream.png[example, 150%]
+image::example_eventstream.png[example, 150%, link="example_eventstream.png", window="_blank"]
 
 Step 3: Return to Edit Alert
 
 Navigate back to your alert configuration by going to **Settings** > **Searches, reports, and alerts**, then click on your `ospf-neighbor` alert to edit it.
 
-image::return_edit_alert.png[return, 100%]
+image::return_edit_alert.png[return, 100%, link="return_edit_alert.png", window="_blank"]
 
 === Router State (Returning to the Lab)
 Here we need to return the router's OPSF neighbor to a steady state.
@@ -226,7 +226,7 @@ Step 1: Return the OPSF neighbor to a full adjacency
 
 Access cisco-rtr1 from the bastion console to no shut interface tunnel0
 
-image::bastion.png[bastion, 150%]
+image::bastion.png[bastion, 150%, link="bastion.png", window="_blank"]
 
 * SSH password=`ansible123!`
 * SSH into cisco-rtr1 and add the following commands

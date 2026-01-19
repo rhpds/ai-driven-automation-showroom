@@ -3,7 +3,7 @@
 :numbered:
 :imagesdir: ../assets/images
 
-image::aiops.png[aiops,55%,55%]
+image::aiops.png[aiops,55%,55%, link="aiops.png", window="_blank"]
 
 == Lab Introduction
 
@@ -26,7 +26,7 @@ In AIOps there are three major parts:
 - Inference
 - Automation
 
-image::aiops-circle.png[aiops diagram,55%,55%]
+image::aiops-circle.png[aiops diagram,55%,55%, link="aiops-circle.png", window="_blank"]
 
 - *Observability* is the ability to understand the internal state of a system by collecting, analyzing, and visualizing data from logs, metrics, and traces.  This _can_ be another AI tool such as *IBM Instana Observability*.  For this lab we are simply relaying logs using https://www.elastic.co/beats/filebeat[Filebeat, window=_blank], a Lightweight shipper for logs.  Ansible Automation Platform can integrate with obervability tools using Event-Driven Ansible (EDA).
 
@@ -86,7 +86,7 @@ link:_images/overview_diagram.png[image:overview_diagram.png[overview_diagram], 
 
 **I need more details!**
 
-image::more.png[give me more,400]
+image::more.png[give me more,400, link="more.png", window="_blank"]
 
 Let’s take a closer look at each step in the workflow, broken down clearly for you.
 
@@ -155,7 +155,7 @@ You now have everything you need to start the core AIOps lab! In the following m
 
 == Part 2: AIOps with Network Automation
 
-image::splunk-logo.png[splunk,150]
+image::splunk-logo.png[splunk,150, link="splunk-logo.png", window="_blank"]
 
 [IMPORTANT]
 ====
@@ -178,7 +178,7 @@ The network environment includes:
 * **Event-Driven Ansible** - Webhook listener that bridges Splunk alerts to AAP workflows
 * **Cisco Cat8000v Routers** - OSPF-configured network devices (running in OpenShift Virtualization)
 
-image::lab_topo.png[Lab Topology,150%,150%]
+image::lab_topo.png[Lab Topology,150%,150%, link="lab_topo.png", window="_blank"]
 
 === How It Works: The Closed-Loop Network AIOps Workflow
 
