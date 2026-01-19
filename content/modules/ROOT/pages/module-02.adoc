@@ -1,13 +1,13 @@
-= Section 3 - Splunk
-
-== Part 2: AIOps with Network Automation
+= Section 3 - Splunk for Network Observability
 
 [quote]
-Welcome to Part 2! In Part 1, you learned how Red Hat AI and Ansible Lightspeed work together to create self-healing infrastructure for Apache services. Now you'll apply those same AIOps concepts to **network infrastructure**, using Splunk for observability, Event-Driven Ansible for automation triggers, and Ansible Lightspeed to generate network remediation playbooks automatically.
+**Part 2: AIOps with Network Automation** - Welcome to Part 2! In Part 1, you learned how Red Hat AI and Ansible Lightspeed work together to create self-healing infrastructure for Apache services. Now you'll apply those same AIOps concepts to **network infrastructure**, using Splunk for observability, Event-Driven Ansible for automation triggers, and Ansible Lightspeed to generate network remediation playbooks automatically.
 
-In this lab environment, we've included Splunk to integrate with Event Driven Ansible (EDA). Splunk collects and indexes log files and other data from network sources in real-time. This indexed data is then stored in a way that allows for incredibly fast and flexible searching and analysis. From a Splunk search for OSPF related events, we can create a Splunk alert to send webhooks to EDA. 
+== What is Splunk?
 
-Think of Splunk as an observability tool. 
+In this lab environment, we've included Splunk to integrate with Event Driven Ansible (EDA). Splunk collects and indexes log files and other data from network sources in real-time. This indexed data is then stored in a way that allows for incredibly fast and flexible searching and analysis. From a Splunk search for OSPF related events, we can create a Splunk alert to send webhooks to EDA.
+
+Think of Splunk as an observability tool.
 
 [quote]
 Observability tools, such as Splunk, Prometheus, Grafana, Dynatrace, and others, provide deep insights into the health and performance of IT systems. They excel at collecting metrics, logs, and traces to identify when something is wrong. However, they traditionally rely on human intervention to interpret the alerts and take corrective action. This is where Ansible EDA steps in, creating a powerful synergy.
