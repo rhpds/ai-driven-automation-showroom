@@ -114,7 +114,7 @@ image::routing_dashboard2.png[Routing Dash, 250%]
 === Configure an Alert
 In splunk we can create an alert from a search. A Splunk search is when you manually run a query to find and analyze information in your data.
 
-An alert is simply that search saved to run automatically if the search results meet a trigger condition you set (like "%OSPF-5-ADJCHG: Process 1, Nbr 192.168.2.2 on Tunnel0 from FULL to DOWN"), Splunk automatically performs an action, such as sending a webhook to EDA.
+An alert is simply that search saved to run automatically. When the search results meet a trigger condition you set (like `%OSPF-5-ADJCHG: Process 1, Nbr 192.168.2.2 on Tunnel0 from FULL to DOWN`), Splunk automatically performs an action, such as sending a webhook to EDA.
 
 Step 1: Access the Splunk search field
 
@@ -159,8 +159,13 @@ image::save_as_alert.png[Save As, 150%]
 Complete the pop-up screen for save as an alert
 
 === Alert Settings
+Configure the alert with the following settings:
+
 [cols="2,2", options="header"]
 |===
+| Setting
+| Value
+
 | Title
 | ospf-neighbor
 
@@ -170,13 +175,18 @@ Complete the pop-up screen for save as an alert
 | Alert type
 | Real-time
 
-| Add Actions
+| Add Actions (first)
 | Add to Triggered Alerts
-| Add Actions
+
+| Add Actions (second)
 | Webhook
-    | URL
-    | `{eda_webhook_url}`
+
+| Webhook URL
+| `{eda_webhook_url}`
 |===
+
+[quote]
+💡 **Important**: When configuring the Webhook action, use the `{eda_webhook_url}` variable shown above. The screenshot may show `controller.example.com` but you should use the EDA webhook URL specific to your lab environment.
 
 image::save_as_alert2.png[Save As, 100%]
 
@@ -188,13 +198,24 @@ For this lab environment we are using a simple webhook. However, for a more secu
 
 Step 1: Access the Ansible addon
 
+From the Splunk Apps menu, navigate to the Event-Driven Ansible app.
+
 image::eda_addon.png[Add on, 100%]
 
-Step 2: Create a webhook to EDA event-stream configuration:
+Step 2: Create a webhook to EDA event-stream configuration
+
+Click on **Configuration** and then **Event Streams**. Create a new event stream with the following details:
+
+* **Name**: ospf-eda-stream
+* **EDA Controller URL**: Your EDA controller URL
+* **Token**: Authentication token from EDA
+* **Verify SSL**: Depends on your environment (typically disabled for lab environments)
 
 image::example_eventstream.png[example, 150%]
 
 Step 3: Return to Edit Alert
+
+Navigate back to your alert configuration by going to **Settings** > **Searches, reports, and alerts**, then click on your `ospf-neighbor` alert to edit it.
 
 image::return_edit_alert.png[return, 100%]
 

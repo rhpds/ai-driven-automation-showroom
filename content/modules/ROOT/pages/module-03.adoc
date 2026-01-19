@@ -70,6 +70,13 @@ image::rulebook_validate.png[rulebook validate, 150%]
 
 Step 4: Review the Rulebook `ospf.yml`
 
+To view the rulebook content, click on the **OSPF Neighbor** rulebook activation name, then navigate to the **Details** tab to see the rulebook source code.
+
+[quote]
+💡 **Tip:** You can also view the complete rulebook source code in the GitHub repository at https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/ospf.yml[github.com/ansible-tmm/aiops-summitlab/rulebooks/ospf.yml,window=_blank]. All playbooks and rulebooks used in this lab are available there.
+
+The rulebook should contain the following configuration:
+
 [source, YAML]
 ----
 ---
