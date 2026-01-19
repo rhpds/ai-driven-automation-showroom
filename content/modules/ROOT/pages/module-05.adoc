@@ -62,7 +62,7 @@ https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_break.y
 
 == EDA Reponse
 
-image::eda_response.png[eda response,500, link="eda_response.png", window="_blank"]
+image::eda_response.png[eda response,500, link="_images/eda_response.png", window="_blank"]
 
 === `Web App`
 
@@ -75,7 +75,7 @@ https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/web_app.yml[A
 
 Also known as the `Enrichment Workflow` for short!
 
-image::enrichment_workflow_diagram.png[enrichment_workflow, link="enrichment_workflow_diagram.png", window="_blank"]
+image::enrichment_workflow_diagram.png[enrichment_workflow, link="_images/enrichment_workflow_diagram.png", window="_blank"]
 
 === `⚙️ Apache Service Status Check`
 
@@ -140,7 +140,7 @@ https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/aap_create_jo
 
 == Remediation Workflow
 
-image::remediation_workflow.png[remedation_workflow, link="remediation_workflow.png", window="_blank"]
+image::remediation_workflow.png[remedation_workflow, link="_images/remediation_workflow.png", window="_blank"]
 
 === `🧠 Lightspeed Remediation Playbook Generator`
 
@@ -242,7 +242,7 @@ https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_fix.yml
 
 The network automation portion of this lab follows the same AIOps principles as Part 1, but applies them to Cisco router OSPF troubleshooting scenarios.
 
-image::network-aiops-workflow.png[Network AI Workflow, link="network-aiops-workflow.png", window="_blank"]
+image::network-aiops-workflow.png[Network AI Workflow, link="_images/network-aiops-workflow.png", window="_blank"]
 
 === `Network-Router-Setup`
 
@@ -260,7 +260,7 @@ https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_route
 
 == Network EDA Response
 
-image::eda.png[EDA, 150%, link="eda.png", window="_blank"]
+image::eda.png[EDA, 150%, link="_images/eda.png", window="_blank"]
 
 === `OSPF Neighbor`
 
@@ -396,4 +396,4 @@ Are you ready to implement now?
 
 Thank you for completing the {lab_name}! We hope you've gained valuable insights into how AI and automation can work together to create intelligent, self-healing infrastructure.
 
-image::aap_logo.png[aap_logo,55%,55%, link="aap_logo.png", window="_blank"]
+image::aap_logo.png[aap_logo,55%,55%, link="_images/aap_logo.png", window="_blank"]
