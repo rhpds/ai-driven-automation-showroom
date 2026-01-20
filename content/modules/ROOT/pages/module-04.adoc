@@ -214,10 +214,10 @@ image::routing_dashboard2.png[Routing Dash, 160%, link="_images/routing_dashboar
 For scenario two, we'll break OSPF by misconfiguring the network type on cisco-rtr1's Tunnel0 interface. This creates a subtle failure where the OSPF neighbor goes down while the interface itself stays up. Therefore, our AI prompt must be more detailed to account for this protocol-level issue, not just a simple interface status change.
 
 Step 1: Review the playbook (aiops.yml) 
-The playbook can be reviewed in its entirety here:
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml
+The playbook can be reviewed in its entirety here: https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml[network_aiops.yml on GitHub,window=_blank]
 
 user=lab-user
+
 password="{ssh_password}"
 
 [quote]
@@ -390,10 +390,10 @@ Output:
 For scenario three, we'll break OSPF by misconfiguring the hello timer on cisco-rtr1's Tunnel0 interface. This creates a subtle failure where the OSPF neighbor goes down while the interface itself stays up. Therefore, our AI prompt must be more detailed to account for this protocol-level issue, not just a simple interface status change.
 
 Step 1: Review the playbook (aiops.yml) 
-The playbook can be reviewed in its entirety here:
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml
+The playbook can be reviewed in its entirety here: https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml[network_aiops.yml on GitHub,window=_blank]
 
 user=lab-user 
+
 password="{ssh_password}"
 
 [quote]
