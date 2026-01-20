@@ -194,15 +194,15 @@ image::save_as_alert2.png[Save As, 100%, link="_images/save_as_alert2.png", wind
 For this lab environment we are using a simple webhook. However, for a more secure webhook, Splunk offers the Ansible EDA addon to integrate with EDA event streams. EDA event streams allow for token based authentication as well as storing a history of events. 
 
 [quote]
-**Note:** Do not actually configure, this section is for reference only
+**Note:** Do not actually configure, this section is for reference only. The steps below are apart of the reference to set up EDA event streams. 
 
-Step 1: Access the Ansible addon
+Step 1: Access the Ansible addon (REFERENCE ONLY)
 
 From the Splunk Apps menu, navigate to the Event-Driven Ansible app.
 
 image::eda_addon.png[Add on, 100%, link="_images/eda_addon.png", window="_blank"]
 
-Step 2: Create a webhook to EDA event-stream configuration
+Step 2: Create a webhook to EDA event-stream configuration (REFERENCE ONLY)
 
 Click on **Configuration** and then **Event Streams**. Create a new event stream with the following details:
 
@@ -213,7 +213,7 @@ Click on **Configuration** and then **Event Streams**. Create a new event stream
 
 image::example_eventstream.png[example, 150%, link="_images/example_eventstream.png", window="_blank"]
 
-Step 3: Return to Edit Alert
+Step 3: Return to Edit Alert (REFERENCE ONLY)
 
 Navigate back to your alert configuration by going to **Settings** > **Searches, reports, and alerts**, then click on your `ospf-neighbor` alert to edit it.
 

@@ -394,7 +394,7 @@ You have
 * Completed an AIOps workflow, by utilizing two different AI endpoints
 * Used the *limit* feature in a Job Template
 
-image::aiops-cool.gif[aiops-cool, link="aiops-cool.gif", window="_blank"]
+image::aiops-cool.gif[aiops-cool, link="_images/aiops-cool.gif", window="_blank"]
 
 '''
 

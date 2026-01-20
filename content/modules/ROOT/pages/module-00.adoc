@@ -89,7 +89,7 @@ Think of Mattermost as a stand-in for ServiceNow in this demonstration.
 
 Once logged in, click on the Town Square channel from the left-hand navigation.
 
-image::mattermost_town_square_placeholder.png[Click on Town Square, 60%, link=“replace_with_actual_image_later”]
+image::mattermost_town_square_placeholder.png[Click on Town Square, link="_images/mattermost_town_square_placeholder.png", window="_blank"]
 
 === What You’ll See in Town Square
 

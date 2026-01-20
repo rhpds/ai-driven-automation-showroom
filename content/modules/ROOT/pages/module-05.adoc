@@ -4,7 +4,7 @@
 
 This section will help you go further by documenting all the Ansible Playbooks and showing you how they work!
 
-image::thumbs-up.gif[thumbsup!, link="thumbs-up.gif", window="_blank"]
+image::thumbs-up.gif[thumbsup!, link="_images/thumbs-up.gif", window="_blank"]
 
 == What You Accomplished
 
@@ -377,7 +377,7 @@ This creates a complete closed-loop automation system for network troubleshootin
 
 == Call to action
 
-image::ansible-aiops.jpeg[picture of homer,300, link="ansible-aiops.jpeg", window="_blank"]
+image::ansible-aiops.jpeg[picture of homer,300, link="_images/ansible-aiops.jpeg", window="_blank"]
 
 Here are some recommended next steps in your Ansible AIOps journey:
 
