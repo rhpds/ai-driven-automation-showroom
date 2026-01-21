@@ -3,7 +3,7 @@
 :numbered:
 :imagesdir: ../assets/images
 
-image::aiops.png[aiops,55%,55%, link="_images/aiops.png", window="_blank"]
+image::aiops.png[aiops,55%,55%, link="_images/aiops.png", window=blank]
 
 == Lab Introduction
 
@@ -14,32 +14,32 @@ In this lab, you will build an intelligent, self-healing automation workflow usi
 - Ansible Automation Platform (AAP) workflows for orchestration
 - Event-Driven Ansible (EDA) to listen to real-time service events
 
-The goal is to showcase how **automation + AI** can be used to detect, analyze, and remediate application failures **without writing any playbooks manually**.  For a quick overview consider this ~2 minute https://youtu.be/a3fCHd2vTXU?si=L_5jGYZFtb3SzCJq[YouTube video,window=_blank].  Quick plug! https://youtube.com/ansibleautomation?sub_confirmation=1[Please consider subscribing to the Ansible Team!,window=_blank]
+The goal is to showcase how **automation + AI** can be used to detect, analyze, and remediate application failures **without writing any playbooks manually**.  For a quick overview consider this ~2 minute https://youtu.be/a3fCHd2vTXU?si=L_5jGYZFtb3SzCJq[YouTube video^].  Quick plug! https://youtube.com/ansibleautomation?sub_confirmation=1[Please consider subscribing to the Ansible Team!^]
 
 == Background
 
-AIOps stands for *artificial intelligence* for IT operations. It refers both to a modern approach to managing IT operations and to the software systems that implement it. AIOps uses data science, big data, and machine learning to augment—or even automate—many of the processes traditionally handled manually by IT teams. Its goal is to improve issue detection, root cause analysis, and system resolution by making IT operations more intelligent and efficient. To read more about AIops there is a great article on https://www.redhat.com/en/topics/ai/what-is-aiops[redhat.com, window=_blank].
+AIOps stands for *artificial intelligence* for IT operations. It refers both to a modern approach to managing IT operations and to the software systems that implement it. AIOps uses data science, big data, and machine learning to augment—or even automate—many of the processes traditionally handled manually by IT teams. Its goal is to improve issue detection, root cause analysis, and system resolution by making IT operations more intelligent and efficient. To read more about AIops there is a great article on https://www.redhat.com/en/topics/ai/what-is-aiops[redhat.com^].
 
 In AIOps there are three major parts:
 
-- Obervability
+- Observability
 - Inference
 - Automation
 
-image::aiops-circle.png[aiops diagram,55%,55%, link="_images/aiops-circle.png", window="_blank"]
+image::aiops-circle.png[aiops diagram,55%,55%, link="_images/aiops-circle.png", window=blank]
 
-- *Observability* is the ability to understand the internal state of a system by collecting, analyzing, and visualizing data from logs, metrics, and traces.  This _can_ be another AI tool such as *IBM Instana Observability*.  For this lab we are simply relaying logs using https://www.elastic.co/beats/filebeat[Filebeat, window=_blank], a Lightweight shipper for logs.  Ansible Automation Platform can integrate with obervability tools using Event-Driven Ansible (EDA).
+- *Observability* is the ability to understand the internal state of a system by collecting, analyzing, and visualizing data from logs, metrics, and traces.  This _can_ be another AI tool such as *IBM Instana Observability*.  For this lab we are simply relaying logs using https://www.elastic.co/beats/filebeat[Filebeat^], a Lightweight shipper for logs.  Ansible Automation Platform can integrate with observability tools using Event-Driven Ansible (EDA).
 
 - *Inference* - Inference in AI refers to the process of using a trained model to make predictions or decisions based on new, unseen data.  For this AIOps workflow we are using *Red Hat AI* for understanding service issues like an application outage, and *Ansible Lightspeed* to create an Ansible Playbook.
 
-- *Automation* is the ability to automatically detect, respond to, and resolve IT issues without human intervention.  We are using *Ansible Automation Platform* to tie observability and inference together to direclty to create workflows for self healing infrastrucure.
+- *Automation* is the ability to automatically detect, respond to, and resolve IT issues without human intervention.  We are using *Ansible Automation Platform* to tie observability and inference together directly to create workflows for self-healing infrastructure.
 
-It is important to note that AIOps can be adopted incrementally and it is not all or nothing.  You do not need to have fully self healing infrastrucure on day one to start realizing value.  At Red Hat we like to say: "Start small, think big!"
+It is important to note that AIOps can be adopted incrementally and it is not all or nothing.  You do not need to have fully self-healing infrastructure on day one to start realizing value.  At Red Hat we like to say: "Start small, think big!"
 
 
 == Lab Environment
 
-link:_images/lab_topology.png[image:lab_topology.png[lab_topology], window=_blank]
+link:_images/lab_topology.png[image:lab_topology.png[lab_topology], window=blank]
 
 - A RHEL(Red Hat Enterprise Linux) node with Apache (`httpd`) installed
 - Filebeat monitoring Apache logs
@@ -56,7 +56,15 @@ link:_images/lab_topology.png[image:lab_topology.png[lab_topology], window=_blan
 
 == Workshop Agenda
 
-For this workshop are there four (4) Parts:
+=== Workshop Duration
+
+This workshop consists of two independent parts:
+
+- *Part 1: AIOps with Apache Remediation* - 30-40 minutes
+- *Part 2: Network Automation* - 50-60 minutes
+- *Total Workshop Time* - 80-100 minutes
+
+For this workshop are there 4 Parts:
 
 1. *Event-Driven Ansible (EDA) Response* - Event Driven Ansible will respond to a systemd application outage
 
@@ -73,7 +81,7 @@ For this workshop are there four (4) Parts:
 
 Here is a diagram of the entire workflow:
 
-link:_images/overview_diagram.png[image:overview_diagram.png[overview_diagram], window=_blank]
+link:_images/overview_diagram.png[image:overview_diagram.png[overview_diagram], window=blank]
 
 [quote]
 ❓ Why Mattermost? Mattermost is an open-source, self-hostable online chat service with file sharing, search, and third party application integrations. It is designed as an internal chat for organisations and companies, and mostly markets itself as an open-source alternative to Slack and Microsoft Teams.  It is used in this workshop as an example and can be replaced with any Chat or ITSM (e.g. *ServiceNow*) of your choice.  It is really easy to setup an individual Mattermost container per student in the workshop!
@@ -82,15 +90,15 @@ link:_images/overview_diagram.png[image:overview_diagram.png[overview_diagram], 
 ❓ Why Gitea? Gitea is a self-hosted, open-source software development service that provides Git hosting, code review, team collaboration, package registry, and CI/CD, similar to platforms like GitHub, Bitbucket, and GitLab.  It could be replaced by *Github*, *Gitlab* or any Git service of your choosing.  It is a a very lightweight solution that works great for workshops.
 
 [quote]
-❓ Why Kafka? Apache Kafka is a distributed streaming platform used for building real-time data pipelines and streaming applications, enabling applications to publish, consume, and process high volumes of data streams.  It is all open-source and self hosted and works great for workshops.  This could be replaced by any event bus of your choosing.  Event-Driven Ansible has numerous plugins including integratrions with AWS SQS, AWS CloudTrail, Azure Service Bus, Prometheus, dynatrace, IBM Instana, BigPanda, Zabbix, CyberArk and more.
+❓ Why Kafka? Apache Kafka is a distributed streaming platform used for building real-time data pipelines and streaming applications, enabling applications to publish, consume, and process high volumes of data streams.  It is all open-source and self hosted and works great for workshops.  This could be replaced by any event bus of your choosing.  Event-Driven Ansible has numerous plugins including integrations with AWS SQS, AWS CloudTrail, Azure Service Bus, Prometheus, dynatrace, IBM Instana, BigPanda, Zabbix, CyberArk and more.
 
 **I need more details!**
 
-image::more.png[give me more,400, link="_images/more.png", window="_blank"]
+image::more.png[give me more,400, link="_images/more.png", window=blank]
 
 Let’s take a closer look at each step in the workflow, broken down clearly for you.
 
-link:_images/workflow_diagram.png[image:workflow_diagram.png[workflow_diagram], window=_blank]
+link:_images/workflow_diagram.png[image:workflow_diagram.png[workflow_diagram], window=blank]
 
 We will break this up into sections though!  As you go through each module we will break down each individual workflow and go step-by-step! Red Hat and Ansible Automation Platform will make AIOps simple for organizations to adopt and scale.
 
@@ -117,22 +125,22 @@ This lab environment includes a variety of tools working together to demonstrate
 | Ansible Automation Platform
 | AAP is preloaded in the lab interface.
 Click link if you want to open it in full tab:
-link:{controller_url}[AAP Web UI,window=_blank]
+link:{controller_url}[AAP Web UI^]
 | Username: `{controller_username}`
 Password: `{controller_password}`
 
 | Gitea
-| link:{gitea_url}[Gitea Web UI,window=_blank]
+| link:{gitea_url}[Gitea Web UI^]
 | Username: `{gitea_username}`
 Password: `{gitea_password}`
 
 | Mattermost
-| link:{mattermost_url}[Mattermost,window=_blank]
+| link:{mattermost_url}[Mattermost^]
 | Username: `{mattermost_username}`
 Password: `{mattermost_password}`
 
 | Splunk
-| link:{splunk_url}[Splunk,window=_blank]
+| link:{splunk_url}[Splunk^]
 | Username: `{splunk_username}`
 Password: `{splunk_password}`
 
@@ -155,7 +163,7 @@ You now have everything you need to start the core AIOps lab! In the following m
 
 == Part 2: AIOps with Network Automation
 
-image::splunk-logo.png[splunk,150, link="_images/splunk-logo.png", window="_blank"]
+image::splunk-logo.png[splunk,150, link="_images/splunk-logo.png", window=blank]
 
 [IMPORTANT]
 ====
@@ -178,7 +186,7 @@ The network environment includes:
 * **Event-Driven Ansible** - Webhook listener that bridges Splunk alerts to AAP workflows
 * **Cisco Cat8000v Routers** - OSPF-configured network devices (running in OpenShift Virtualization)
 
-image::lab_topo.png[Lab Topology,150%,150%, link="_images/lab_topo.png", window="_blank"]
+image::lab_topo.png[Lab Topology,150%,150%, link="_images/lab_topo.png", window=blank]
 
 === How It Works: The Closed-Loop Network AIOps Workflow
 

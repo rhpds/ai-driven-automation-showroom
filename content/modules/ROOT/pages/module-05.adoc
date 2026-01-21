@@ -4,7 +4,7 @@
 
 This section will help you go further by documenting all the Ansible Playbooks and showing you how they work!
 
-image::thumbs-up.gif[thumbsup!, link="_images/thumbs-up.gif", window="_blank"]
+image::thumbs-up.gif[thumbsup!, link="_images/thumbs-up.gif", window=blank]
 
 == What You Accomplished
 
@@ -58,24 +58,24 @@ Now here is a walkthrough in the same chronological order:
 - EDA rulebook matches and triggers `AI Insights and Lightspeed prompt generation` workflow
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_break.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_break.yml[Github Link^]
 
 == EDA Reponse
 
-image::eda_response.png[eda response,500, link="_images/eda_response.png", window="_blank"]
+image::eda_response.png[eda response,500, link="_images/eda_response.png", window=blank]
 
 === `Web App`
 
 *Purpose:*
 Checks for httpd disruption in a Kafka queue
 
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/web_app.yml[Ansible Rulebook,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/web_app.yml[Ansible Rulebook^]
 
 == AI Insights and Lightspeed prompt generation workflow
 
 Also known as the `Enrichment Workflow` for short!
 
-image::enrichment_workflow_diagram.png[enrichment_workflow, link="_images/enrichment_workflow_diagram.png", window="_blank"]
+image::enrichment_workflow_diagram.png[enrichment_workflow, link="_images/enrichment_workflow_diagram.png", window=blank]
 
 === `⚙️ Apache Service Status Check`
 
@@ -89,7 +89,7 @@ Checks whether Apache is active and logs its status.
 - Output is consumed by the next steps (Red Hat AI and Mattermost)
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/systemd_check_status.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/systemd_check_status.yml[Github Link^]
 
 
 === `🤖 RHEL AI: Analyze Incident`
@@ -104,7 +104,7 @@ Uses Red Hat AI inference service to understand the failure message.
 - Suggests what kind of automation could fix it
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/rhelai_inference_survey.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/rhelai_inference_survey.yml[Github Link^]
 
 === `📣 Notify via Mattermost`
 
@@ -118,7 +118,7 @@ Sends a human-readable incident message to a Mattermost channel.
 - Simulates integration with a real ITSM tool like ServiceNow
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/mattermost_first_message.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/mattermost_first_message.yml[Github Link^]
 
 === `⚙️ Build Ansible Lightspeed Job Template`
 
@@ -136,11 +136,11 @@ https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/mattermost_fi
 This allows Ansible Lightspeed to generate a remediation playbook without writing code manually. The job template created here will be used in the second workflow.
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/aap_create_job_template.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/aap_create_job_template.yml[Github Link^]
 
 == Remediation Workflow
 
-image::remediation_workflow.png[remedation_workflow, link="_images/remediation_workflow.png", window="_blank"]
+image::remediation_workflow.png[remedation_workflow, link="_images/remediation_workflow.png", window=blank]
 
 === `🧠 Lightspeed Remediation Playbook Generator`
 
@@ -153,7 +153,7 @@ Runs the job template created in the previous workflow `AI Insights and Lightspe
 - Stores the result locally as `lightspeed-response.yml`
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/lightspeed_generate.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/lightspeed_generate.yml[Github Link^]
 
 === `🧾 Commit Fix to Gitea`
 
@@ -167,7 +167,7 @@ Pushes the generated playbook to the Gitea Git repository.
 - Makes the playbook available for automation use
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/scm_pr.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/scm_pr.yml[Github Link^]
 
 === `Sync Project to Lightspeed-Playbooks`
 
@@ -189,7 +189,7 @@ Creates a new job template that uses the playbook pushed by Ansible Lightspeed t
 - Sets up the credentials, inventory and prompt for limit
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_remediation_job_template.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_remediation_job_template.yml[Github Link^]
 
 == `Execute HTTPD Remediation`
 
@@ -234,7 +234,7 @@ If you want to return Apache to a good state (without running AIOps workflows), 
 
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_fix.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_fix.yml[Github Link^]
 
 == Part 2: Network Automation Playbooks
 
@@ -242,7 +242,7 @@ https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/httpd_fix.yml
 
 The network automation portion of this lab follows the same AIOps principles as Part 1, but applies them to Cisco router OSPF troubleshooting scenarios.
 
-image::network-aiops-workflow.png[Network AI Workflow, link="_images/network-aiops-workflow.png", window="_blank"]
+image::network-aiops-workflow.png[Network AI Workflow, link="_images/network-aiops-workflow.png", window=blank]
 
 === `Network-Router-Setup`
 
@@ -256,11 +256,11 @@ Configures the initial OSPF setup on both Cisco routers and enables syslog forwa
 - Sets up the baseline OSPF neighbor adjacency
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_router_setup.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_router_setup.yml[Github Link^]
 
 == Network EDA Response
 
-image::eda.png[EDA, 150%, link="_images/eda.png", window="_blank"]
+image::eda.png[EDA, 150%, link="_images/eda.png", window=blank]
 
 === `OSPF Neighbor`
 
@@ -274,7 +274,7 @@ Listens for OSPF neighbor state changes from Splunk webhook alerts.
 - Launches the Network-AIOps-Workflow with webhook payload
 
 *Ansible Rulebook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/ospf.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/rulebooks/ospf.yml[Github Link^]
 
 == Network-AIOps-Workflow
 
@@ -296,7 +296,7 @@ Uses Ansible Lightspeed to generate a network remediation playbook based on the 
 - Commits the generated playbook to Gitea as `lightspeed-response.yml`
 
 *Ansible Playbook:*
-https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml[Github Link,window=_blank]
+https://github.com/ansible-tmm/aiops-summitlab/blob/main/playbooks/network_aiops.yml[Github Link^]
 
 === `Sync Project to Lightspeed-Playbooks`
 
@@ -377,23 +377,23 @@ This creates a complete closed-loop automation system for network troubleshootin
 
 == Call to action
 
-image::ansible-aiops.jpeg[picture of homer,300, link="_images/ansible-aiops.jpeg", window="_blank"]
+image::ansible-aiops.jpeg[picture of homer,300, link="_images/ansible-aiops.jpeg", window=blank]
 
 Here are some recommended next steps in your Ansible AIOps journey:
 
-- https://youtube.com/ansibleautomation?sub_confirmation=1[Subscribe to our YouTube page,window=_blank]
+- https://youtube.com/ansibleautomation?sub_confirmation=1[Subscribe to our YouTube page^]
 
-  * Check out the AI + Ansible YouTube https://youtube.com/playlist?list=PLdu06OJoEf2Y9-d7vPaKSh6ED_rO6AQFF&si=AFgrSb_FDHrU_TE6[playlist,window=_blank]
+  * Check out the AI + Ansible YouTube https://youtube.com/playlist?list=PLdu06OJoEf2Y9-d7vPaKSh6ED_rO6AQFF&si=AFgrSb_FDHrU_TE6[playlist^]
 
-- https://labs.demoredhat.com/[Bookmark our technical workshops page,window=_blank]
-- https://developers.redhat.com/products/ansible/overview[Check out developers.redhat.com,window=_blank] and get a home lab license.
-- https://www.redhat.com/en/services/training/do007-ansible-essentials-simplicity-automation-technical-overview[Sign up for free Red Hat training,window=_blank]
+- https://labs.demoredhat.com/[Bookmark our technical workshops page^]
+- https://developers.redhat.com/products/ansible/overview[Check out developers.redhat.com^] and get a home lab license.
+- https://www.redhat.com/en/services/training/do007-ansible-essentials-simplicity-automation-technical-overview[Sign up for free Red Hat training^]
 
 Are you ready to implement now?
-- https://www.redhat.com/en/contact[Contact Red Hat,window=_blank]
+- https://www.redhat.com/en/contact[Contact Red Hat^]
 
 == Thank You!
 
 Thank you for completing the {lab_name}! We hope you've gained valuable insights into how AI and automation can work together to create intelligent, self-healing infrastructure.
 
-image::aap_logo.png[aap_logo,55%,55%, link="_images/aap_logo.png", window="_blank"]
+image::aap_logo.png[aap_logo,55%,55%, link="_images/aap_logo.png", window=blank]
