@@ -218,7 +218,7 @@ Lets get started!
 
 [cols="1,3", frame=none, grid=none]
 |===
-|image::aap_logo.png[aap_logo,120, link="_images/aap_logo.png", window=blank]
+a|image::aap_logo.png[aap_logo,120, link="_images/aap_logo.png", window=blank]
 a|
 **Part 1: AIOps with Apache Remediation** (Modules 1-2)
 
