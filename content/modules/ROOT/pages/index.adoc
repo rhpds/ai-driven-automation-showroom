@@ -64,17 +64,17 @@ This workshop consists of two independent parts:
 - *Part 2: Network Automation* - 50-60 minutes
 - *Total Workshop Time* - 80-100 minutes
 
-For this workshop are there 4 Parts:
+For each workshop, there are 4 parts:
 
 1. *Event-Driven Ansible (EDA) Response* - Event Driven Ansible will respond to a systemd application outage
 
-2. *Log Enrichment and Prompt Generation Workflow* - Ansible Automation Platform (AAP) - will retrieve systemd logs, coordinate with Red Hat AI to analyze the incident, notify Mattermost then automatically create a Job Template for us to use in the subsequent workflow.
+2. *Log Enrichment and Prompt Generation Workflow* - Ansible Automation Platform (AAP) will retrieve systemd logs, coordinate with Red Hat AI to analyze the incident, notify Mattermost then automatically create a Job Template for us to use in the subsequent workflow.
 
 3. *Remediation Workflow* - This workflow will focus on automatically creating an Ansible Playbook to resolve the issue by using Ansible Lightspeed.  This workflow will take the prompt created by the previous workflow, request a playbook from Ansible Lightspeed, sync this playbook to Git and then automatically create a Job Template for us to remediate the issue.
 
-4. *Execute HTTPD Remedation* - This is the final Job Template that will actually fix the application outage on the RHEL webserver.
-
-5. *AI Driven Ansible for Network Automation* - This lab synthesizes the AI skills from the preceding sections of the {lab_name} into a practical network automation scenario.
+4. *Execute a remediation*
+* For part 1: *Execute HTTPD Remediation* - This is the final Job Template that will actually fix the application outage on the RHEL webserver.
+* For part 2: *AI Driven Ansible for Network Automation* - This lab synthesizes the AI skills from the preceding sections of the {lab_name} into a practical network automation scenario.
 
 [quote]
 💡 Could this all be one workflow? Yes.  This is purposely broken up at natural breakpoints where a human user can review what the AIOps workflow is doing and course correct if required.  This also allows organization to incrementally adopt AIOps workflows.  Organization can benefit greatly from any of these individual parts!
@@ -205,7 +205,7 @@ This lab demonstrates a complete observe → evaluate → respond loop for netwo
 === What You'll Learn
 
 * How to integrate Splunk with Event-Driven Ansible for network event detection
-* Techniques for prompting Ansible Lightspeed to generate effective network automation playbooks
+* Techniques for prompting Ansible Lightspeed code assistant to generate effective network automation playbooks
 * Best practices for validating AI-generated network changes before production deployment
 * Real-world OSPF troubleshooting scenarios: interface shutdown, network type mismatch, and hello timer configuration
 

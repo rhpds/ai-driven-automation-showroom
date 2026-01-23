@@ -1,11 +1,11 @@
 = Section 3 - Splunk for Network Observability
 
 [quote]
-**Part 2: AIOps with Network Automation** - Welcome to Part 2! In Part 1, you learned how Red Hat AI and Ansible Lightspeed work together to create self-healing infrastructure for Apache services. Now you'll apply those same AIOps concepts to **network infrastructure**, using Splunk for observability, Event-Driven Ansible for automation triggers, and Ansible Lightspeed to generate network remediation playbooks automatically.
+**Part 2: AIOps with Network Automation** - Welcome to Part 2! In Part 1, you learned how Red Hat AI and Ansible Lightspeed work together to create self-healing infrastructure for Apache services. Now you'll apply those same AIOps concepts to **network infrastructure**, using Splunk for observability, Event-Driven Ansible for automation triggers, and Ansible Lightspeed code assistant to generate network remediation playbooks automatically.
 
 == What is Splunk?
 
-In this lab environment, we've included Splunk to integrate with Event Driven Ansible (EDA). Splunk collects and indexes log files and other data from network sources in real-time. This indexed data is then stored in a way that allows for incredibly fast and flexible searching and analysis. From a Splunk search for OSPF related events, we can create a Splunk alert to send webhooks to EDA.
+In this lab environment, we use Splunk to send events into Ansible Automation Platform using Event-Driven Ansible. Splunk collects and indexes log data from network sources in real time, enabling fast and flexible searching and analysis. Based on a Splunk search for OSPF-related events, we configure a Splunk alert that sends a webhook to Event-Driven Ansible to trigger automation.
 
 Think of Splunk as an observability tool.
 
