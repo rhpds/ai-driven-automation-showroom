@@ -130,7 +130,7 @@ The infrastructure map shows all monitored hosts, grouped into **zones**. In thi
 
 image::instana_infra_map_zone.png[Instana Infrastructure Map, link="_images/instana_infra_map_zone.png", window=blank]
 
-Hovering over the tower shows a summary of CPU, memory, and the agents and processes reporting from the host. Clicking it opens the host details, where you can see the individual processes discovered on `node2` — including the Python process behind `lab-webapp`.
+Hovering over the tower shows the agents and processes reporting from the host. Clicking it opens the host details, where you can see the individual processes discovered on `node2` — including the Python process behind `lab-webapp`. To see CPU and memory metrics, click **Open Dashboard** on the host details page.
 
 [NOTE]
 ====
@@ -149,12 +149,13 @@ The **Services** tab lists monitored applications and their performance metrics.
 
 image::instana_services_tab.png[Instana Services, link="_images/instana_services_tab.png", window=blank]
 
-The Services view displays:
+Opening a service shows its metrics:
 
 * **Calls**: HTTP request throughput, which should be continuous while the lab is healthy
 * **Latency**: response time metrics
 * **Error rate**: percentage of failed requests
-* **Traces**: individual request traces showing the execution flow
+
+Individual request traces are covered in the next section.
 
 [NOTE]
 ====

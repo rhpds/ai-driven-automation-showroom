@@ -163,7 +163,7 @@ An Application Perspective is a scoped view of one or more services. Yours will 
 Type the full service name into the filter field — do not pick from the dropdown. The dropdown does not list every service in this shared instance, and `lab-webapp-{guid}` may not appear in it. Typing the complete name is what makes your service show up in the filter results.
 ====
 . Confirm your service appears under **Matched services in the last hour** on the right side of the dialog
-. Under **Which downstream services would you like to include?**, leave **No downstream services** selected
+. Under **Which downstream services would you like to include?**, make sure to select **No downstream services** — it is not the default option
 . Click **Next**
 . On **Step 3: Provide details**, name the Application Perspective:
 +
@@ -302,7 +302,7 @@ The saved alert may be displayed under a generic default title. That label is co
 Instana polls Ansible Automation Platform with a dedicated read and execute account and imports the job templates that account can see. Those imported templates become **actions**.
 
 . In the Instana UI, click **Automation** in the left navigation menu
-. Click **Action Catalog**
+. Click **Actions** — this opens the Action Catalog
 . Search for `{guid}`
 
 image::instana_action_catalog_list.png[Action Catalog List, link="_images/instana_action_catalog_list.png", window=blank]
