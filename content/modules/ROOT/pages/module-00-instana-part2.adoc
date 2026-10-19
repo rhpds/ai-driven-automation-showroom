@@ -563,6 +563,14 @@ The pattern is three nodes in an Ansible Automation Platform workflow:
 |`ai_route_remediation.yml` — AI picks the template |Workflow *approval node* — you review and approve |`dispatch_remediation.yml` — launches the approved template
 |===
 
+The workflow, as it appears in the AAP Workflow Visualizer — the AI router feeding the approval gate:
+
+image::instana_workflow_router_approval.png[Workflow Visualizer: ai_router to approval, link="_images/instana_workflow_router_approval.png", window=blank]
+
+and the approval gate feeding the dispatcher:
+
+image::instana_workflow_approval_dispatch.png[Workflow Visualizer: approval to dispatch, link="_images/instana_workflow_approval_dispatch.png", window=blank]
+
 The snippets below are from a working demo of this pattern against Instana alerts. The AI router fetches your job template catalog from the AAP API and asks the LLM to pick one:
 
 [source,yaml]
