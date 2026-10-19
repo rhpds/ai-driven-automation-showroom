@@ -553,6 +553,111 @@ The next step is to let the automation itself choose the remediation. Your job t
 - an **approval gate** pauses the workflow so a human reviews the AI's choice before anything executes
 - a **dispatcher** launches the approved job template against the affected host
 
+=== The pattern in playbooks
+
+The pattern is three nodes in an Ansible Automation Platform workflow:
+
+[grid=cols]
+|===
+|Node 1 |Node 2 |Node 3
+|`ai_route_remediation.yml` — AI picks the template |Workflow *approval node* — you review and approve |`dispatch_remediation.yml` — launches the approved template
+|===
+
+The snippets below are from a working demo of this pattern against Instana alerts. The AI router fetches your job template catalog from the AAP API and asks the LLM to pick one:
+
+[source,yaml]
+----
+- name: Fetch job template catalog from AAP
+  ansible.builtin.uri:
+    url: "https://{{ controller_host }}/api/controller/v2/job_templates/?page_size=100"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ controller_token }}"
+    status_code: 200
+  register: jt_response
+
+- name: Build LLM prompt
+  ansible.builtin.set_fact:
+    llm_prompt: |
+      You are an AIOps routing agent. An observability alert has fired and you must
+      select the single best remediation action from the job template catalog below.
+
+      ALERT CONTEXT:
+      - Text: {{ alert_text }}
+      - Severity: {{ alert_severity }}
+      - Entity Label: {{ alert_entity_label }}
+      {% if alert_suggestion | length > 0 %}
+      - Instana Suggestion: {{ alert_suggestion }}
+      {% endif %}
+
+      JOB TEMPLATE CATALOG (from Ansible Automation Platform):
+      {{ template_catalog }}
+
+      INSTRUCTIONS:
+      - Select exactly ONE job template that best remediates this alert
+      - If confidence is below 70% or nothing clearly matches, set template to "ESCALATE"
+      - Respond with ONLY a JSON object:
+      {"template": "<exact template name>", "confidence": <0-100>, "reasoning": "<one sentence>"}
+----
+
+The alert context comes straight from the Instana webhook payload you examined in Part 1 — `alert_entity_label` is the payload's `entityLabel`, and `alert_suggestion` is `issue.suggestion`. Anything Instana already tells you about the incident is free routing signal.
+
+The router then records its decision and hands control to the workflow:
+
+[source,yaml]
+----
+- name: Pass routing decision to workflow via set_stats
+  ansible.builtin.set_stats:
+    data:
+      selected_template: "{{ routing_decision.template }}"
+      routing_confidence: "{{ routing_decision.confidence }}"
+      routing_reasoning: "{{ routing_decision.reasoning }}"
+      alert_fqdn: "{{ alert_fqdn }}"
+      alert_entity_label: "{{ alert_entity_label }}"
+
+- name: Fail the node if AI says ESCALATE
+  ansible.builtin.fail:
+    msg: >-
+      AI router selected ESCALATE (confidence: {{ routing_decision.confidence }}%).
+      Alert '{{ alert_text }}' does not match any known remediation.
+      Sending to on-call team for manual investigation.
+  when: routing_decision.template == "ESCALATE"
+----
+
+`set_stats` is how the three nodes share state: the approval node pauses the workflow for a human decision, and the dispatcher reads the same stats. Failing the node on `ESCALATE` routes low-confidence incidents to a person instead of guessing.
+
+Finally, the dispatcher launches the approved template against the affected host:
+
+[source,yaml]
+----
+- name: Find job template by name in AAP
+  ansible.builtin.uri:
+    url: "https://{{ controller_host }}/api/controller/v2/job_templates/?name={{ selected_template | urlencode }}"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ controller_token }}"
+    status_code: 200
+  register: template_lookup
+
+- name: Launch remediation job template
+  ansible.builtin.uri:
+    url: "https://{{ controller_host }}/api/controller/v2/job_templates/{{ template_lookup.json.results[0].id }}/launch/"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ controller_token }}"
+    body_format: json
+    body:
+      extra_vars:
+        target_host: "{{ alert_fqdn }}"
+        entity_label: "{{ alert_entity_label }}"
+        routed_by: "ai"
+        routing_confidence: "{{ routing_confidence }}"
+    status_code: [200, 201]
+  register: launched_job
+----
+
+Notice the dispatcher never contains remediation logic itself — it looks up whatever template the AI selected and launches it. That is what makes the pattern catalog-driven: add a new remediation job template to AAP and the router can pick it immediately, with no playbook changes.
+
 The dividing line to keep in mind: **rules for known failure modes, AI for everything else**. Path 1 is faster and fully predictable, but only covers what you wrote a rule for. The AI-routed pattern trades a little latency for coverage of incidents nobody anticipated — and the approval gate is what keeps it governed: every AI decision is reviewed, attributable, and auditable before it touches a host.
 
 == Summary
