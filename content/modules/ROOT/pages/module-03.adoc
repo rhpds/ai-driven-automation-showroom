@@ -79,15 +79,20 @@ Step 4: Configure the following input settings
 | Component
 | Value
 
-| Source Type
+| Select Source type
 | cisco:ios
 
 | App Context
 | Cisco Networks (cisco:ios)
 
-| Host 
+| Host
 | IP
 |===
+
+[IMPORTANT]
+====
+`cisco:ios` does not appear in the default Source type pull-down list. Click **Select Source type**, then use the search field to find and select `cisco:ios`.
+====
 
 image::tcp_4.png[Add TCP, 100%, link="_images/tcp_4.png", window=blank]
 
