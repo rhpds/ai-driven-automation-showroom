@@ -310,23 +310,26 @@ If your workflow matches this configuration, proceed to trigger it.
 == Trigger the Workflow
 
 [start=25]
-25. Run the `❌ Break Apache` job template. This inserts an invalid directive in Apache config and restarts the service.
-
-image::run_break_apache.png[link="_images/run_break_apache.png", window=blank]
-
-[start=26]
-26. Go to Automation Decisions(Event-Driven Ansible) → Rulebook Activations. Confirm EDA(Event-Driven Ansible) picked up the event.
+25. Before you break Apache, go to *Automation Decisions* → *Rulebook Activations* and confirm the *Web App* activation shows *Running*. This is the rulebook that listens for httpd errors on Kafka and launches *AI Insights and Lightspeed prompt generation*. If it is *Stopped* or *Failed*, enable it and wait until the status is *Running* before continuing — otherwise Break Apache will not trigger the workflow.
 
 image::eda_trigger_capture.png[link="_images/eda_trigger_capture.png", window=blank]
 
+[start=26]
+26. Run the `❌ Break Apache` job template. This inserts an invalid directive in Apache config and restarts the service.
+
+image::run_break_apache.png[link="_images/run_break_apache.png", window=blank]
+
 [start=27]
-27. Go to Automation Controller → Jobs. Confirm workflow execution. When the workflow completes you will see a green ✅ Success.
+27. Return to *Automation Decisions* → *Rulebook Activations*. Confirm *Web App* picked up the event (fire count increments).
+
+[start=28]
+28. Go to Automation Controller → Jobs. Confirm workflow execution. When the workflow completes you will see a green ✅ Success.
 
 image::workflow_triggered_jobs.png[link="_images/workflow_triggered_jobs.png", window=blank]
 
 
-[start=28]
-28. Go to Templates and you should be able to see a new job template called "🧠 Lightspeed Remediation Playbook Generator" generated. This step also creates a blank Workflow Job Template called "Remediation Workflow" that will be used in next challenge.
+[start=29]
+29. Go to Templates and you should be able to see a new job template called "🧠 Lightspeed Remediation Playbook Generator" generated. This step also creates a blank Workflow Job Template called "Remediation Workflow" that will be used in next challenge.
 
 == Final Checks & Observations
 
